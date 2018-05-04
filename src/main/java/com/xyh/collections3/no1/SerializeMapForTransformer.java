@@ -1,6 +1,7 @@
 package com.xyh.collections3.no1;
 
 
+import com.xyh.collections3.SerializeUtil;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.functors.ChainedTransformer;
 import org.apache.commons.collections.functors.ConstantTransformer;
@@ -58,9 +59,9 @@ public class SerializeMapForTransformer
         ctor.setAccessible(true);
         InvocationHandler o = (InvocationHandler) ctor.newInstance(Target.class,ouputMap);
         //序列化输出
-        byte[] bytes = serialize(o);
+        byte[] bytes = SerializeUtil.serialize(o);
         //反序列化
-        deserialize(bytes);
+        SerializeUtil.deserialize(bytes);
     }
 
     /**
@@ -71,9 +72,9 @@ public class SerializeMapForTransformer
         //转化map
         Map ouputMap = TransformedMap.decorate(new HashMap<>(),null,transformer);
         //序列化输出
-        byte[] bytes = serialize(ouputMap);
+        byte[] bytes = SerializeUtil.serialize(ouputMap);
         //反序列化
-        Map innerMap = deserialize(bytes);
+        Map innerMap = SerializeUtil.deserialize(bytes);
         //put操作触发，命令链
         innerMap.put("2","orange");
     }
@@ -85,34 +86,10 @@ public class SerializeMapForTransformer
     private static void testReadObject() throws Exception {
         A a = new A();
         //序列化
-        byte[] bytes = serialize(a);
-        A a1 = deserialize(bytes);
+        byte[] bytes = SerializeUtil.serialize(a);
+        A a1 = SerializeUtil.deserialize(bytes);
     }
 
-    /**
-     * 序列化
-     *
-     */
-    private static byte[] serialize(Object o) throws Exception {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-        objectOutputStream.writeObject(o);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        objectOutputStream.close();
-        return bytes;
-    }
-
-    /**
-     * 反序列化
-     *
-     */
-    private static <T>T deserialize(byte[] bytes) throws Exception {
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-        T o = (T) objectInputStream.readObject();
-        objectInputStream.close();
-        return o;
-    }
 }
 
 /**

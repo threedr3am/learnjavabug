@@ -33,20 +33,11 @@
     </dependency>
 
     <dependency>
-      <groupId>io.protostuff</groupId>
-      <artifactId>protostuff-core</artifactId>
-      <version>1.4.4</version>
+      <groupId>org.mozilla</groupId>
+      <artifactId>rhino</artifactId>
+      <version>1.7.6</version>
     </dependency>
-    <dependency>
-      <groupId>io.protostuff</groupId>
-      <artifactId>protostuff-runtime</artifactId>
-      <version>1.4.4</version>
-    </dependency>
-    <dependency>
-      <groupId>com.xyh.serialization_utils</groupId>
-      <artifactId>Serialization-Utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+
 
   </dependencies>
 
