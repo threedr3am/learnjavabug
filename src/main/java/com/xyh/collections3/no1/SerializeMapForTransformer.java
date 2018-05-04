@@ -1,4 +1,4 @@
-package com.xyh.collections3;
+package com.xyh.collections3.no1;
 
 
 import org.apache.commons.collections.Transformer;
@@ -15,9 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Map反序列化漏洞
+ * Map反序列化漏洞，该洞利用的是Collections3.1中的TransformedMap，TransformedMap可以封装一个Map，并且实现一个Transformer链，
+ * 在Map的value在变化时执行Transformer进行转换，而Transformer包含的是Runtime.exec执行指令。
+ * 利用AnnotationInvocationHandler重写的readObject方法成功实现反序列化直接触发，而不需要等待修改value。
  *
- *
+ * Created by xuanyonghao on 2018/5/3.
  */
 public class SerializeMapForTransformer
 {
@@ -112,6 +114,10 @@ public class SerializeMapForTransformer
         return o;
     }
 }
+
+/**
+ * 测试readObject重写类
+ */
 class A implements Serializable{
     private void readObject(ObjectInputStream var1) {
         System.out.println("exec readObject");
