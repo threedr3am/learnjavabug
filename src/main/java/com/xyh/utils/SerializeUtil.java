@@ -1,4 +1,4 @@
-package com.xyh.collections3;
+package com.xyh.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

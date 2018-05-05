@@ -1,7 +1,7 @@
 package com.xyh.collections3.no1;
 
 
-import com.xyh.collections3.SerializeUtil;
+import com.xyh.utils.SerializeUtil;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.functors.ChainedTransformer;
 import org.apache.commons.collections.functors.ConstantTransformer;

