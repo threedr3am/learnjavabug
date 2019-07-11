@@ -6,7 +6,7 @@ import com.xyh.utils.FileToByteArrayUtil;
 import sun.misc.BASE64Encoder;
 
 /**
- * 利用fastjson开启type的漏洞
+ * 利用fastjson开启type的漏洞，fastjson版本<=1.2.24 + Feature.SupportNonPublicField
  *
  * Created by xuanyonghao on 2018/5/5.
  */
