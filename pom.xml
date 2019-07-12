@@ -44,7 +44,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastJson</artifactId>
-      <version>1.2.24</version>
+      <version>1.2.47</version>
     </dependency>
 
     <!-- jsonkson -->
@@ -52,6 +52,33 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>2.6.3</version>
+    </dependency>
+
+    <!-- ldap -->
+    <dependency>
+      <groupId>com.unboundid</groupId>
+      <artifactId>unboundid-ldapsdk</artifactId>
+      <version>3.1.1</version>
+    </dependency>
+
+    <!-- logback -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+
+    <!-- 数据库连接池 -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>1.1.6</version>
+    </dependency>
+    <!-- mysql -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.34</version>
     </dependency>
 
   </dependencies>

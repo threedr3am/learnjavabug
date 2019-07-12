@@ -1,4 +1,4 @@
-package com.xyh.fastjson;
+package com.threedr3am.bug.fastjson;
 
 import com.sun.org.apache.xalan.internal.xsltc.DOM;
 import com.sun.org.apache.xalan.internal.xsltc.TransletException;

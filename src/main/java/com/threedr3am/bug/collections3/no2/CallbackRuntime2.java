@@ -1,4 +1,4 @@
-package com.xyh.collections3.no2;
+package com.threedr3am.bug.collections3.no2;
 
 import java.io.BufferedInputStream;
 

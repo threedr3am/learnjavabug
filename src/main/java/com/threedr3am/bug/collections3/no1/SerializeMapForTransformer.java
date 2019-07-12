@@ -1,7 +1,7 @@
-package com.xyh.collections3.no1;
+package com.threedr3am.bug.collections3.no1;
 
 
-import com.xyh.utils.SerializeUtil;
+import com.threedr3am.bug.utils.SerializeUtil;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.collections.functors.ChainedTransformer;
 import org.apache.commons.collections.functors.ConstantTransformer;
