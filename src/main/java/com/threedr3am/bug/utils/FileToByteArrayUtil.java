@@ -1,8 +1,7 @@
 package com.threedr3am.bug.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by xuanyonghao on 2018/5/5.
@@ -16,9 +15,9 @@ public class FileToByteArrayUtil {
      */
     public static byte[] readCallbackRuntimeClassBytes(String classPath) throws IOException {
         //执行前先编译CallbackRuntime类得到class文件
-        FileInputStream fileInputStream = new FileInputStream(new File(classPath));
-        byte[] bytes = new byte[fileInputStream.available()];
-        fileInputStream.read(bytes);
+        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(classPath);
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes);
         return bytes;
     }
 }

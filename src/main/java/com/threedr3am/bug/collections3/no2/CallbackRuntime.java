@@ -3,6 +3,8 @@ package com.threedr3am.bug.collections3.no2;
 import java.io.BufferedInputStream;
 
 /**
+ * 抛异常回显执行命令
+ *
  * Created by xuanyonghao on 2018/5/5.
  */
 public class CallbackRuntime {

