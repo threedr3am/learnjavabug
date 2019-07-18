@@ -1,12 +1,16 @@
 package com.threedr3am.bug.asm;
 
 import com.google.common.reflect.ClassPath;
+import com.sun.org.apache.bcel.internal.Constants;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
+import org.mozilla.javascript.GeneratedClassLoader;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Handle;
 import org.objectweb.asm.Label;
@@ -18,6 +22,7 @@ import org.objectweb.asm.commons.JSRInlinerAdapter;
 
 /**
  * 学习asm字节码操作，fuzz基础
+ *
  * @author xuanyh
  */
 public class Test {
@@ -45,10 +50,17 @@ public class Test {
       try (InputStream in = Thread.currentThread().getContextClassLoader()
           .getResourceAsStream("com.threedr3am.bug.asm.Test".replace(".", "/") + ".class")) {
         ClassReader cr = new ClassReader(in);
+        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         try {
-          MethodCallDiscoveryClassVisitor visitor = new MethodCallDiscoveryClassVisitor(
-              Opcodes.ASM6);
+          MyClassVisitorAdapter visitor = new MyClassVisitorAdapter(
+              Opcodes.ASM6, cw);
           cr.accept(visitor, ClassReader.EXPAND_FRAMES);
+          GeneratorClassLoader classLoader = new GeneratorClassLoader();
+          classLoader.defineClassFromClassFile("com.threedr3am.bug.asm.Test", cw.toByteArray());
+          Class c = classLoader.loadClass("com.threedr3am.bug.asm.Test");
+          Object o = c.newInstance();
+          Method method = c.getDeclaredMethod("test", new Class[]{String.class});
+          method.invoke(o, "输入参数");
         } catch (Exception e) {
           e.printStackTrace();
         }
@@ -56,23 +68,30 @@ public class Test {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    new Test().test();
   }
 
-  public void test() {
-    System.out.println("call Test.test()");
+  public void test(String str) {
+    System.out.println("call Test.test(" + str + ")");
+  }
+
+  public static class GeneratorClassLoader extends ClassLoader {
+
+    public Class defineClassFromClassFile(String className, byte[] classFile)
+        throws ClassFormatError {
+      return defineClass(className, classFile, 0, classFile.length);
+    }
   }
 
   /**
    * ClassVisitor 基于观察者模式的class asm操作
    *
-   * visit -> visitSource -> visitInnerClass -> visitInnerClass -> visitMethod -> visitMethod -> visitMethod -> visitEnd
+   * visit -> visitSource -> visitInnerClass -> visitInnerClass -> visitMethod -> visitMethod ->
+   * visitMethod -> visitEnd
    */
-  private static class MethodCallDiscoveryClassVisitor extends ClassVisitor {
+  private static class MyClassVisitorAdapter extends ClassVisitor {
 
-    public MethodCallDiscoveryClassVisitor(int api) {
-      super(api);
+    public MyClassVisitorAdapter(int api, ClassVisitor cv) {
+      super(api, cv);
     }
 
     @Override
@@ -140,11 +159,8 @@ public class Test {
     private String name = null;
 
     /**
-     *
      * @param version 字节码版本
-     * @param access
      * @param name 类全限定名
-     * @param signature
      * @param superName 继承的基类
      * @param interfaces 实现的接口
      */
@@ -167,13 +183,10 @@ public class Test {
     }
 
     /**
-     *
-     * @param access
      * @param name 方法名
      * @param desc 方法参数和返回值
      * @param signature 方法签名
      * @param exceptions 方法抛出的异常数组
-     * @return
      */
     @Override
     public MethodVisitor visitMethod(int access, String name, String desc,
@@ -186,17 +199,14 @@ public class Test {
 //      System.out.println("desc: " + desc);
 //      System.out.println("signature: " + signature);
 //      System.out.println("exceptions: " + Arrays.toString(exceptions));
-      MethodCallDiscoveryMethodVisitor modelGeneratorMethodVisitor = new MethodCallDiscoveryMethodVisitor(
-          api, mv, this.name, name, desc);
 
       //适配器封装MethodVisitor，进行asm操作方法字节码
-      return new JSRInlinerAdapter(modelGeneratorMethodVisitor, access, name, desc, signature,
-          exceptions);
+      return new MethodVisitorAdapter(api, mv, this.name, name, desc);
     }
 
     @Override
     public void visitEnd() {
-      System.out.printf("visitEnd -> ");
+      System.out.printf("visitEnd\n");
       super.visitEnd();
     }
   }
@@ -204,13 +214,13 @@ public class Test {
   /**
    * MethodVisitor 基于观察者模式的method asm操作
    */
-  private static class MethodCallDiscoveryMethodVisitor extends MethodVisitor {
+  private static class MethodVisitorAdapter extends MethodVisitor {
 
     private String owner = null;
     private MethodVisitor mv = null;
     private String name = null;
 
-    public MethodCallDiscoveryMethodVisitor(final int api, final MethodVisitor mv,
+    public MethodVisitorAdapter(final int api, final MethodVisitor mv,
         final String owner, String name, String desc) {
       super(api, mv);
       this.owner = owner;
@@ -255,9 +265,18 @@ public class Test {
       super.visitAttribute(attribute);
     }
 
+    /**
+     * 进入方法代码执行时会先执行该方法
+     */
     @Override
     public void visitCode() {
       super.visitCode();
+      if (name.equals("test")) {
+        mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+        mv.visitLdcInsn("插入代码调用，输出字符串");
+        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println",
+            "(Ljava/lang/String;)V", false);
+      }
     }
 
     @Override
@@ -383,14 +402,11 @@ public class Test {
     }
 
     /**
+     * TODO this.name base call method（调用方法） TODO this.owner base call class（调用类）
      *
-     * TODO this.name base call method（调用方法）
-     * TODO this.owner base call class（调用类）
-     * @param opcode
      * @param owner target class（被调用类）
      * @param name target method（被调用方法）
      * @param desc 方法参数和返回值描述
-     * @param itf
      */
     @Override
     public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
