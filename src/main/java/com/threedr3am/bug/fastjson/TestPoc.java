@@ -7,7 +7,7 @@ import com.threedr3am.bug.server.LdapServer;
 /**
  * 挖洞
  *
- * @author xuanyh
+ * @author met3d
  */
 public class TestPoc {
   static {

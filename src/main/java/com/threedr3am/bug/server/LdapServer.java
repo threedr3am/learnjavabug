@@ -19,7 +19,7 @@ import javax.net.ssl.SSLSocketFactory;
 /**
  * LDAP server
  *
- * @author xuanyh
+ * @author met3d
  */
 public class LdapServer {
 

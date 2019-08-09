@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * CVE-2019-12384
  * jackson-databind RCE < 2.9.9.2
- * @author xuanyh
+ * @author met3d
  */
 public class H2Rce {
   public static void main(String[] args) throws IOException {

@@ -5,7 +5,7 @@ import java.io.BufferedInputStream;
 /**
  * 抛异常回显执行命令
  *
- * Created by xuanyonghao on 2018/5/5.
+ * Created by met3d on 2018/5/5.
  */
 public class CallbackRuntime {
     public void exec(String cmd) throws Throwable {

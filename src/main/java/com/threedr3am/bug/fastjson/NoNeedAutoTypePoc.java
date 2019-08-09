@@ -6,7 +6,7 @@ import com.threedr3am.bug.server.RmiServer;
 
 /**
  * fastjson 1.2.48以下不需要任何配置，默认配置通杀RCE
- * @author xuanyh
+ * @author met3d
  */
 public class NoNeedAutoTypePoc {
 

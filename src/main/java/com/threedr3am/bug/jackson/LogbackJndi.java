@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * logback jndi rce
  * jackson < 2.9.9.2
- * @author xuanyh
+ * @author met3d
  */
 public class LogbackJndi {
   static {

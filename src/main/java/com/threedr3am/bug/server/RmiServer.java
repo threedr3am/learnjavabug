@@ -11,7 +11,7 @@ import javax.naming.Reference;
 /**
  * rmi server
  *
- * @author xuanyh
+ * @author met3d
  */
 public class RmiServer {
 

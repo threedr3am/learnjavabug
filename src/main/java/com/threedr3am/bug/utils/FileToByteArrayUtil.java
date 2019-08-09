@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by xuanyonghao on 2018/5/5.
+ * Created by met3d on 2018/5/5.
  */
 public class FileToByteArrayUtil {
     /**
