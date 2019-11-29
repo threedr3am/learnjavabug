@@ -8,7 +8,7 @@ import sun.misc.BASE64Encoder;
 /**
  * 利用fastjson开启type的漏洞，fastjson版本<=1.2.24 + Feature.SupportNonPublicField
  *
- * Created by met3d on 2018/5/5.
+ * Created by threedr3am on 2018/5/5.
  */
 public class FastjsonSerialize {
     public static void main(String[] args) {

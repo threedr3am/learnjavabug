@@ -23,7 +23,7 @@ import org.objectweb.asm.commons.JSRInlinerAdapter;
 /**
  * 学习asm字节码操作，fuzz基础
  *
- * @author met3d
+ * @author threedr3am
  */
 public class Test {
 

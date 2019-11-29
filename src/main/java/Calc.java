@@ -1,5 +1,5 @@
 /**
- * @author met3d
+ * @author threedr3am
  */
 public class Calc {
   static {

@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * CVE-2019-14379
  * jackson-databind RCE < 2.9.9.2
- * @author met3d
+ * @author threedr3am
  */
 public class EhcacheJndi {
   static {

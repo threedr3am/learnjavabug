@@ -1,6 +1,6 @@
 /**
  * fastjson gadgetchain fuzz
  *
- * @author met3d
+ * @author threedr3am
  */
 package com.threedr3am.bug.asm.fuzz.fastjson;

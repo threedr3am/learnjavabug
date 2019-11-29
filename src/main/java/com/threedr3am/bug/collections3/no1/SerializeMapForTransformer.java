@@ -20,7 +20,7 @@ import java.util.Map;
  * 在Map的value在变化时执行Transformer进行转换，而Transformer包含的是Runtime.exec执行指令。
  * 利用AnnotationInvocationHandler重写的readObject方法成功实现反序列化直接触发，而不需要等待修改value。
  *
- * Created by met3d on 2018/5/3.
+ * Created by threedr3am on 2018/5/3.
  */
 public class SerializeMapForTransformer
 {

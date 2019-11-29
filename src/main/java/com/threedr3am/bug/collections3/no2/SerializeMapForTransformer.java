@@ -18,7 +18,7 @@ import java.util.Map;
  * 此处基于Collections3.1中的TransformedMap利用漏洞，并进一步利用defineCLass构造回显,回显利用异常抛出带回，
  * 但由于DefiningClassLoader类所属jar包使用范围有限，而且AnnotationInvocationHandler的利用也仅限jdk1.8以下， 使得这样的利用链可用性不高。
  *
- * Created by met3d on 2018/5/4.
+ * Created by threedr3am on 2018/5/4.
  */
 public class SerializeMapForTransformer {
 

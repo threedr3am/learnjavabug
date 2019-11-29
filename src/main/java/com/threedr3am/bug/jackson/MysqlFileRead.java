@@ -7,7 +7,7 @@ import java.io.IOException;
  * CVE-2019-12086
  * jackson文件读取，2.x - 2.9.9，mysql < 8.0.14
  * https://github.com/Gifts/Rogue-MySql-Server
- * @author met3d
+ * @author threedr3am
  */
 public class MysqlFileRead {
 

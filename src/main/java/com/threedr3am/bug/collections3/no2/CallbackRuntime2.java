@@ -5,7 +5,7 @@ import java.io.BufferedInputStream;
 /**
  * 利用加载时自动执行 & 抛异常回显
  *
- * Created by met3d on 2018/5/5.
+ * Created by threedr3am on 2018/5/5.
  */
 public class CallbackRuntime2 {
     public static String exec(String cmd) {
