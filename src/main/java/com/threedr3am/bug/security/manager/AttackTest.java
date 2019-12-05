@@ -114,6 +114,9 @@ public class AttackTest {
 
 }
 
+/**
+ * 自定义的类加载器，在加载类的时候给予类全部权限，从而使加载的恶意class能越权执行
+ */
 class MyClassLoader extends ClassLoader {
 
   @Override
