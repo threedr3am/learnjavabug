@@ -15,8 +15,12 @@ import java.io.IOException;
  */
 public class Cmd extends AbstractTranslet{
 
-    public Cmd() throws IOException {
-        Runtime.getRuntime().exec("calc");
+    static {
+        try {
+            Runtime.getRuntime().exec("/Applications/Calculator.app/Contents/MacOS/Calculator");
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

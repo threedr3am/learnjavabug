@@ -146,6 +146,18 @@
       <artifactId>HikariCP</artifactId>
       <version>3.4.1</version>
     </dependency>
+
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>1.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-proxy</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 
   <build>

