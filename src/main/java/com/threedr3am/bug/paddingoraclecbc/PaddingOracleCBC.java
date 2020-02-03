@@ -4,7 +4,7 @@ import com.vip.vjtools.vjkit.security.CryptoUtil;
 import com.vip.vjtools.vjkit.text.EncodeUtil;
 
 /**
- * padding oracle cbc java实现
+ * padding oracle cbc java实现（单组 <= 16bytes 密文实现）
  *
  * @author threedr3am
  */

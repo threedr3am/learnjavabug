@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 /**
- * padding oracle cbc java实现（多组密文实现）
+ * padding oracle java实现（多组密文实现）
  *
  * @author threedr3am
  */
-public class PaddingOracleCBC2 {
+public class PaddingOracle {
 
   public static void main(String[] args) {
     //aes iv
@@ -27,7 +27,7 @@ public class PaddingOracleCBC2 {
     //aes iv bytes
     byte[] ivBytes = EncodeUtil.decodeBase64(aesIv);
 
-    CBCResult cbcResult = paddingOracleCBC(cryptTextBytes, ivBytes, cbcRes.getBytes(), data -> {
+    String paddingPlain = paddingOracle(cryptTextBytes, ivBytes, cbcRes.getBytes(), data -> {
       //前16bytes是iv
       byte[] ivTmp = Arrays.copyOfRange(data, 0, 16);
       //后16bytes是密文
@@ -40,63 +40,30 @@ public class PaddingOracleCBC2 {
         return false;
       }
     });
-
-    System.out.println(CryptoUtil
-        .aesDecrypt(cbcResult.crypt, EncodeUtil.decodeBase64(aesKey), cbcResult.iv));
   }
 
-  /**
-   * CBC Attack Result
-   */
-  public static class CBCResult {
-    byte[] iv;
-    byte[] crypt;
-
-    public CBCResult(byte[] iv, byte[] crypt) {
-      this.iv = iv;
-      this.crypt = crypt;
-    }
-
-    public byte[] getIv() {
-      return iv;
-    }
-
-    public byte[] getCrypt() {
-      return crypt;
-    }
-  }
-
-  private static CBCResult paddingOracleCBC(byte[] cryptText, byte[] ivBytes, byte[] cbcResBytes, Predicate<byte[]> predicate) {
-
-    //填充期望结果长度为16字节的倍数
-    cbcResBytes = padding(cbcResBytes);
-    //该值为期望结果的组数-1，用于不断反向取出每组期望值去CBC攻击
-    int cbcResGroup = cbcResBytes.length / 16;
-    byte[] res = new byte[cbcResBytes.length];
-    //该值为密文的组数-1，用于取出最后一组密文和iv
+  private static String paddingOracle(byte[] cryptText, byte[] ivBytes, byte[] cbcResBytes, Predicate<byte[]> predicate) {
+    byte[] middles = new byte[cryptText.length];
+    byte[] data = new byte[ivBytes.length + cryptText.length];
+    System.arraycopy(ivBytes, 0, data, 0, ivBytes.length);
+    System.arraycopy(cryptText, 0, data, ivBytes.length, cryptText.length);
     int group = cryptText.length / 16;
-    //取出最后一段密文和其所需的iv
-    byte[] iv = group > 1 ? Arrays.copyOfRange(cryptText, (group - 2) * 16, (group - 1) * 16) : ivBytes;
-    byte[] crypt = Arrays.copyOfRange(cryptText, (group - 1) * 16, group * 16);
-
-    for (; cbcResGroup > 0; cbcResGroup--) {
+    byte[] plainBytes = new byte[cryptText.length];
+    //padding oracle attack
+    for (int i = group - 1; i >= 0; i--) {
+      byte[] iv = Arrays.copyOfRange(data, i * 16, i * 16 + 16);
+      byte[] crypt = Arrays.copyOfRange(data, (i + 1) * 16, (i + 1) * 16 + 16);
       byte[] middle = paddingOracle(iv, crypt, predicate);
-      byte[] plain = generatePlain(iv, middle);
-      byte[] plainTmp = Arrays.copyOf(plain, plain.length);
-      plainTmp = unpadding(plainTmp);
-      System.out.println("[plain]:" + new String(plainTmp));
-      byte[] cbcResTmp = Arrays.copyOfRange(cbcResBytes, (cbcResGroup - 1) * 16, cbcResGroup * 16);
-      //构造新的iv，cbc攻击
-      byte[] ivBytesNew = cbcAttack(iv, crypt, cbcResTmp, plain);
-      System.out.println("[cbc->plain]:" + new String(generatePlain(ivBytesNew, middle)));
-
-      System.arraycopy(crypt, 0, res, (cbcResGroup - 1) * 16, 16);
-
-      crypt = ivBytesNew;
-      iv = new byte[iv.length];
+      System.arraycopy(middle, 0, middles, i * 16, 16);
+      byte[] res = generatePlain(iv, middle);
+      System.arraycopy(res, 0, plainBytes, i * 16, res.length);
+      res = unpadding(res);
+      System.out.println("[plain]:" + new String(res));
     }
-
-    return new CBCResult(crypt, res);
+    byte[] tmp = Arrays.copyOf(plainBytes, plainBytes.length);
+    String plain = new String(unpadding(tmp));
+    System.out.println("[final-plain]:" + plain);
+    return plain;
   }
 
   /**
@@ -121,7 +88,7 @@ public class PaddingOracleCBC2 {
 
   /**
    * 原来的iv ^ middle = plain
-   * 构造新的iv ^ middle = 'admin' -> 新的iv = middle ^ 'admin' -> 新的iv = 原来的iv ^ plain ^ 'admin'
+   * 构造新的iv ^ middle = 'admin' -> 新的iv = middle ^ 'admin'
    *
    *
    *
@@ -133,13 +100,22 @@ public class PaddingOracleCBC2 {
    */
   private static byte[] cbcAttack(byte[] iv, byte[] cryptText, byte[] cbcResBytesForPadding,
       byte[] plainBytes) {
-    byte[] res = Arrays.copyOf(iv, iv.length);
-    for (int i = 15; i >= 0; i--) {
-      if (cbcResBytesForPadding[i] != plainBytes[i]) {
-        res[i] = (byte) (iv[i] ^ plainBytes[i] ^ cbcResBytesForPadding[i]);
+    byte[] cbcTmp = new byte[iv.length + cbcResBytesForPadding.length];
+    System.arraycopy(iv, 0, cbcTmp, 0, iv.length);
+    System.arraycopy(cbcResBytesForPadding, 0, cbcTmp, iv.length, cbcResBytesForPadding.length);
+    byte[] plainTmp = new byte[iv.length + plainBytes.length];
+    System.arraycopy(iv, 0, plainTmp, 0, iv.length);
+    System.arraycopy(plainBytes, 0, plainTmp, iv.length, plainBytes.length);
+    byte[] cryptTmp = new byte[iv.length + cryptText.length];
+    System.arraycopy(iv, 0, cryptTmp, 0, iv.length);
+    System.arraycopy(cryptText, 0, cryptTmp, iv.length, cryptText.length);
+
+    for (int i = cbcTmp.length - 1; i >= 16; i--) {
+      if (cbcTmp[i] != plainTmp[i]) {
+        cryptTmp[i - 16] = (byte) (cryptTmp[i - 16] ^ plainTmp[i] ^ cbcTmp[i]);
       }
     }
-    return res;
+    return cryptTmp;
   }
 
   /**
