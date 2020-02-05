@@ -4,13 +4,9 @@
 public class Calc {
   static {
     try {
-      Runtime.getRuntime().exec("/Applications/Calculator.app/Contents/MacOS/Calculator");
+      Runtime.getRuntime().exec("/System/Applications/Calculator.app/Contents/MacOS/Calculator");
     } catch (Throwable e) {
       e.printStackTrace();
     }
-  }
-
-  public static void main(String[] args) {
-
   }
 }

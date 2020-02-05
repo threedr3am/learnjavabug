@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 /**
  * padding oracle java实现（多组密文实现）
  *
+ * todo 用于利用padding oracle爆破出原文
+ *
  * @author threedr3am
  */
 public class PaddingOracle {

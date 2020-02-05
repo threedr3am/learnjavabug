@@ -6,6 +6,8 @@ import com.vip.vjtools.vjkit.text.EncodeUtil;
 /**
  * padding oracle cbc java实现（单组 <= 16bytes 密文实现）
  *
+ * todo 用于padding oracle爆破单组密文的原文，然后cbc攻击修改iv，使密文解密可以变成我们预期的明文
+ *
  * @author threedr3am
  */
 public class PaddingOracleCBC {
