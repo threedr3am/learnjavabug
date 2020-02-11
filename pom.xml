@@ -48,15 +48,15 @@
 <!--    </dependency>-->
 
     <!-- jsonkson -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>2.9.8</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--      <artifactId>jackson-core</artifactId>-->
+<!--      <version>2.9.8</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.7.9.6</version>
+      <version>2.10.2</version>
     </dependency>
 
     <!-- ldap -->
@@ -115,11 +115,11 @@
     </dependency>
 
     <!-- Javaee API -->
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>6.0</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>javax</groupId>-->
+<!--      <artifactId>javaee-api</artifactId>-->
+<!--      <version>6.0</version>-->
+<!--    </dependency>-->
 
     <dependency>
       <groupId>com.vip.vjtools</groupId>
@@ -185,15 +185,48 @@
     </dependency>
 
     <dependency>
-      <groupId>com.rometools</groupId>
-      <artifactId>rome</artifactId>
-      <version>1.7.0</version>
+      <groupId>com.caucho</groupId>
+      <artifactId>hessian</artifactId>
+      <version>4.0.38</version>
     </dependency>
     <dependency>
       <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo</artifactId>
       <version>2.7.3</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.rometools</groupId>
+      <artifactId>rome</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.xbean</groupId>
+      <artifactId>xbean-reflect</artifactId>
+      <version>4.15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.xbean</groupId>
+      <artifactId>xbean-naming</artifactId>
+      <version>4.15</version>
+    </dependency>
+
+    <!-- contains QName -->
+    <dependency>
+      <groupId>com.caucho</groupId>
+      <artifactId>quercus</artifactId>
+      <version>4.0.45</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.62</version>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -1,11 +1,13 @@
 package com.threedr3am.bug.server;
 
+import com.google.common.io.Files;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.spi.HttpServerProvider;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -25,17 +27,40 @@ public class HTTPServer {
   private static final int PORT = 8080;
 
   public static void main(String[] args) throws IOException {
+    run(args);
+  }
+
+  public static void run(String[] args) {
+    int port = PORT;
+    String context = "/";
+    String clazz = "Calc.class";
+    if (args != null && args.length > 0) {
+      port = Integer.parseInt(args[0]);
+      context = args[1];
+      clazz = args[2];
+    }
     HttpServerProvider provider = HttpServerProvider.provider();
-    HttpServer httpserver = provider.createHttpServer(new InetSocketAddress(PORT), 100);
+    HttpServer httpserver = null;
+    try {
+      httpserver = provider.createHttpServer(new InetSocketAddress(port), 100);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     //监听端口8080,
 
-    httpserver.createContext("/", new RestGetHandler());
+    httpserver.createContext(context, new RestGetHandler(clazz));
     httpserver.setExecutor(null);
     httpserver.start();
     System.out.println("server started");
   }
 
   static class RestGetHandler implements HttpHandler {
+
+    private String clazz;
+
+    public RestGetHandler(String clazz) {
+      this.clazz = clazz;
+    }
 
     @Override
     public void handle(HttpExchange he) throws IOException {
@@ -69,9 +94,9 @@ public class HTTPServer {
         }
         System.out.println(stringBuilder.toString());
 
+        byte[] bytes = Files.toByteArray(new File(HTTPServer.class.getClassLoader().getResource(clazz).getPath()));
         // send response
-        String response = "";
-        responseBody.write(response.getBytes());
+        responseBody.write(bytes);
         responseBody.close();
       }
     }
