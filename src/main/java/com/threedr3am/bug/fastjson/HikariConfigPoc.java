@@ -7,6 +7,12 @@ import com.threedr3am.bug.server.LdapServer;
 /**
  * fastjson <= 1.2.59 RCE，需要开启AutoType
  *
+ *
+ * <dependency>
+ *       <groupId>com.zaxxer</groupId>
+ *       <artifactId>HikariCP</artifactId>
+ * </dependency>
+ *
  * @author threedr3am
  */
 public class HikariConfigPoc {

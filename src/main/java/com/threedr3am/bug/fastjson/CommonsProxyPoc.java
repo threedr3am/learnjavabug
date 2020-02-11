@@ -10,6 +10,11 @@ import org.apache.commons.proxy.provider.remoting.RmiProvider;
 /**
  * fastjson <= 1.2.61 RCE，需要开启AutoType
  *
+ * <dependency>
+ *       <groupId>org.apache.commons</groupId>
+ *       <artifactId>commons-proxy</artifactId>
+ * </dependency>
+ *
  * @author threedr3am
  */
 public class CommonsProxyPoc {

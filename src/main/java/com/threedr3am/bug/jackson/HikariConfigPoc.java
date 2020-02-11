@@ -9,6 +9,11 @@ import java.io.IOException;
 /**
  * jackson-databind <= 2.7.9.6、<= 2.8.11.4、<= 2.9.9.3 RCE，需要开启DefaultType
  *
+ * <dependency>
+ *       <groupId>com.zaxxer</groupId>
+ *       <artifactId>HikariCP</artifactId>
+ * </dependency>
+ *
  * @author threedr3am
  */
 public class HikariConfigPoc {
