@@ -6,7 +6,18 @@
 
   <groupId>com.xyh</groupId>
   <artifactId>learn-java-bug</artifactId>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>common</module>
+    <module>common-collections</module>
+    <module>fastjson</module>
+    <module>jackson</module>
+    <module>padding-oracle-cbc</module>
+    <module>security-manager</module>
+    <module>xxe</module>
+    <module>dubbo</module>
+  </modules>
 
   <name>learn-java-bug</name>
   <!-- FIXME change it to the project's website -->
@@ -26,13 +37,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- apache-common-collections3 -->
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
-    </dependency>
-
     <!-- java运行javascript依赖，利用defineclass -->
     <dependency>
       <groupId>org.mozilla</groupId>
@@ -40,79 +44,13 @@
       <version>1.7.6</version>
     </dependency>
 
-<!--    &lt;!&ndash; fastjson &ndash;&gt;-->
+
 <!--    <dependency>-->
-<!--      <groupId>com.alibaba</groupId>-->
-<!--      <artifactId>fastJson</artifactId>-->
-<!--      <version>1.2.59</version>-->
+<!--      <groupId>com.google.guava</groupId>-->
+<!--      <artifactId>guava</artifactId>-->
+<!--      <version>26.0-jre</version>-->
 <!--    </dependency>-->
 
-    <!-- jsonkson -->
-<!--    <dependency>-->
-<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--      <artifactId>jackson-core</artifactId>-->
-<!--      <version>2.9.8</version>-->
-<!--    </dependency>-->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.10.2</version>
-    </dependency>
-
-    <!-- ldap -->
-    <dependency>
-      <groupId>com.unboundid</groupId>
-      <artifactId>unboundid-ldapsdk</artifactId>
-      <version>3.1.1</version>
-    </dependency>
-
-    <!-- logback -->
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <version>1.2.1</version>
-    </dependency>
-
-    <!-- 数据库连接池 -->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid</artifactId>
-      <version>1.1.6</version>
-    </dependency>
-    <!-- mysql -->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.13</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>26.0-jre</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ow2.asm</groupId>
-      <artifactId>asm</artifactId>
-      <version>6.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ow2.asm</groupId>
-      <artifactId>asm-commons</artifactId>
-      <version>6.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.4.199</version>
-    </dependency>
-
-    <dependency>
-      <groupId>net.sf.ehcache</groupId>
-      <artifactId>ehcache</artifactId>
-      <version>2.10.6</version>
-    </dependency>
 
     <!-- Javaee API -->
 <!--    <dependency>-->
@@ -121,43 +59,12 @@
 <!--      <version>6.0</version>-->
 <!--    </dependency>-->
 
-    <dependency>
-      <groupId>com.vip.vjtools</groupId>
-      <artifactId>vjkit</artifactId>
-      <version>1.0.8</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.dom4j</groupId>
-      <artifactId>dom4j</artifactId>
-      <version>2.0.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jdom</groupId>
-      <artifactId>jdom</artifactId>
-      <version>1.1.3</version>
-    </dependency>
 
 
-    <!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
-    <dependency>
-      <groupId>com.zaxxer</groupId>
-      <artifactId>HikariCP</artifactId>
-      <version>3.4.1</version>
-    </dependency>
 
-    <dependency>
-      <groupId>commons-configuration</groupId>
-      <artifactId>commons-configuration</artifactId>
-      <version>1.10</version>
-    </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-proxy</artifactId>
-      <version>1.0</version>
-    </dependency>
+
+
 
     <!-- hibernate -->
     <dependency>
@@ -184,48 +91,11 @@
       </exclusions>
     </dependency>
 
-    <dependency>
-      <groupId>com.caucho</groupId>
-      <artifactId>hessian</artifactId>
-      <version>4.0.38</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.dubbo</groupId>
-      <artifactId>dubbo</artifactId>
-      <version>2.7.3</version>
-    </dependency>
 
-    <dependency>
-      <groupId>com.rometools</groupId>
-      <artifactId>rome</artifactId>
-      <version>1.7.0</version>
-    </dependency>
 
-    <dependency>
-      <groupId>org.apache.xbean</groupId>
-      <artifactId>xbean-reflect</artifactId>
-      <version>4.15</version>
-    </dependency>
 
-    <dependency>
-      <groupId>org.apache.xbean</groupId>
-      <artifactId>xbean-naming</artifactId>
-      <version>4.15</version>
-    </dependency>
 
-    <!-- contains QName -->
-    <dependency>
-      <groupId>com.caucho</groupId>
-      <artifactId>quercus</artifactId>
-      <version>4.0.45</version>
-    </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
-      <version>1.2.62</version>
-    </dependency>
 
   </dependencies>
 
