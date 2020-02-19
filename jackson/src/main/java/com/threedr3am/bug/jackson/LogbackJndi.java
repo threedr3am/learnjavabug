@@ -6,8 +6,10 @@ import com.threedr3am.bug.common.server.RmiServer;
 import java.io.IOException;
 
 /**
- * logback jndi rce
- * jackson < 2.9.9.2
+ * logback jndi rce jackson < 2.9.9.2
+ *
+ * CVE-2019-14439
+ *
  * @author threedr3am
  */
 public class LogbackJndi {

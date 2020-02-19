@@ -10,6 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>dubbo</artifactId>
+  <packaging>pom</packaging>
 
   <properties>
     <!--如果curator版本与zookeeper不对应，会报错：KeeperErrorCode = Unimplemented for /dubbo/com.demo.common.HelloService-->
@@ -69,10 +70,30 @@
       <version>4.0.45</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.1</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
       <version>4.0</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>commons-beanutils</artifactId>
+      <groupId>commons-beanutils</groupId>
+      <version>1.9.2</version>
     </dependency>
   </dependencies>
 </project>

@@ -13,6 +13,9 @@ package：com.threedr3am.bug.jackson
 3. com.threedr3am.bug.dubbo.XBeanPoc 利用条件：存在org.apache.xbean:xbean-naming依赖
 4. com.threedr3am.bug.dubbo.SpringAbstractBeanFactoryPointcutAdvisorPoc 利用条件：存在org.springframework:spring-aop依赖
 
+### dubbo/dubbo-hessian2-safe-reinforcement
+dubbo hessian2安全加固demo，使用黑名单方式禁止部分gadget
+
 ### padding-oracle-cbc
 1. com.threedr3am.bug.paddingoraclecbc.PaddingOracle ```padding oracle java实现（多组密文实现）```
 2. com.threedr3am.bug.paddingoraclecbc.PaddingOracleCBC ```padding oracle cbc java实现（单组 <= 16bytes 密文实现）```
