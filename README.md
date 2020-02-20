@@ -33,3 +33,10 @@ package：com.threedr3am.bug.security.manager
 
 ### rmi
 package：com.threedr3am.bug.rmi
+
+### tomcat
+tomcat相关漏洞
+
+#### ajp-bug
+tomcat ajp协议相关漏洞 
+1. com.threedr3am.bug.tomcat.ajp 任意文件读取和jsp渲染RCE CVE-2020-1938 
