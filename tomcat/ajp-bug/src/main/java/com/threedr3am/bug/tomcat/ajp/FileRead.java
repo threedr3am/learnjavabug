@@ -48,7 +48,7 @@ public class FileRead {
     // create a message that indicates the beginning of the request
     TesterAjpMessage forwardMessage = ac.createForwardMessage(uri);
     forwardMessage.addAttribute("javax.servlet.include.request_uri", "1");
-    forwardMessage.addAttribute("javax.servlet.include.path_info", args.length == 3 ? args[2] : "/index.jsp");
+    forwardMessage.addAttribute("javax.servlet.include.path_info", file);
     forwardMessage.addAttribute("javax.servlet.include.servlet_path", "");
 
     forwardMessage.end();
