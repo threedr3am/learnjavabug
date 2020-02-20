@@ -17,6 +17,7 @@
     <module>security-manager</module>
     <module>xxe</module>
     <module>dubbo</module>
+    <module>rmi</module>
   </modules>
 
   <name>learn-java-bug</name>

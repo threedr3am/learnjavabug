@@ -30,3 +30,6 @@ package：com.threedr3am.bug.collections
 
 ###  security-anager
 package：com.threedr3am.bug.security.manager
+
+### rmi
+package：com.threedr3am.bug.rmi
