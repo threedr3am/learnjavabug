@@ -1,3 +1,5 @@
+*本项目仅用于安全研究，禁止使用本项目发起非法攻击，造成的后果使用者负责*
+
 ### fastjson
 1. com.threedr3am.bug.fastjson.FastjsonSerialize(TemplatesImpl) 利用条件：fastjson <= 1.2.24 + Feature.SupportNonPublicField
 2. com.threedr3am.bug.fastjson.NoNeedAutoTypePoc 利用条件：fastjson < 1.2.48 不需要任何配置，默认配置通杀RCE
