@@ -74,7 +74,7 @@ public class RomePoc {
     // set magic number.
     Bytes.short2bytes((short) 0xdabb, header);
     // set request and serialization flag.
-    header[2] = (byte) ((byte) 0x20 | 2);
+    header[2] = (byte) ((byte) 0x80 | 0x20 | 2);
 
     // set request id.
     Bytes.long2bytes(new Random().nextInt(100000000), header, 4);
