@@ -19,6 +19,8 @@
     <module>dubbo</module>
     <module>rmi</module>
     <module>tomcat</module>
+    <module>spring</module>
+    <module>cas</module>
   </modules>
 
   <name>learn-java-bug</name>
