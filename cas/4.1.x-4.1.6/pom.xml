@@ -10,6 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>4.1.x-4.1.6</artifactId>
+  <packaging>war</packaging>
 
 
   <build>

@@ -10,6 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>5.x</artifactId>
+  <packaging>war</packaging>
 
   <build>
     <plugins>
