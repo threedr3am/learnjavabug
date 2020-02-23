@@ -17,5 +17,7 @@
     <module>4.1.7-4.2.x</module>
   </modules>
 
+  <dependencies>
+  </dependencies>
 
 </project>
