@@ -17,7 +17,7 @@ import org.apache.xbean.naming.context.ContextUtil.ReadOnlyBinding;
 import org.apache.xbean.naming.context.WritableContext;
 
 /**
- * dubbo 默认配置，即hessian2反序列化，都可RCE（dubbo版本<=2.7.5）
+ * dubbo 默认配置，即hessian2反序列化，都可RCE（dubbo版本 < 2.7.5）
  *
  * <dependency>
  *   <groupId>org.apache.xbean</groupId>
