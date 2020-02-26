@@ -100,6 +100,13 @@
       <artifactId>common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.jasig/spring-webflow-client-repo -->
+    <dependency>
+      <groupId>org.jasig</groupId>
+      <artifactId>spring-webflow-client-repo</artifactId>
+      <version>1.0.0</version>
+    </dependency>
   </dependencies>
 
   <properties>
