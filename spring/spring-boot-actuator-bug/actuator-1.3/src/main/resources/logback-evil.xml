@@ -1,0 +1,3 @@
+<configuration>
+  <insertFromJNDI env-entry-name="ldap://127.0.0.1:43658/Calc" as="appName" />
+</configuration>
