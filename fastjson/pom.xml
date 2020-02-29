@@ -49,5 +49,18 @@
       <artifactId>xbean-reflect</artifactId>
       <version>4.15</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.ibatis</groupId>
+      <artifactId>ibatis-sqlmap</artifactId>
+      <version>2.3.4.726</version>
+    </dependency>
+
+    <!-- Javaee API -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>8.0.1</version>
+    </dependency>
   </dependencies>
 </project>
