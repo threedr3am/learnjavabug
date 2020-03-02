@@ -62,5 +62,24 @@
       <artifactId>javaee-api</artifactId>
       <version>8.0.1</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.codahale.metrics/metrics-healthchecks -->
+    <dependency>
+      <groupId>com.codahale.metrics</groupId>
+      <artifactId>metrics-healthchecks</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/br.com.anteros/Anteros-Core -->
+    <dependency>
+      <groupId>br.com.anteros</groupId>
+      <artifactId>Anteros-Core</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/br.com.anteros/Anteros-DBCP -->
+    <dependency>
+      <groupId>br.com.anteros</groupId>
+      <artifactId>Anteros-DBCP</artifactId>
+      <version>1.0.1</version>
+    </dependency>
   </dependencies>
 </project>
