@@ -113,7 +113,6 @@
       <groupId>br.com.anteros</groupId>
       <artifactId>Anteros-DBCP</artifactId>
       <version>1.0.1</version>
-      <version>8.0.1</version>
     </dependency>
 
     <dependency>
