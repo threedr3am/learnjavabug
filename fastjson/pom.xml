@@ -99,5 +99,16 @@
       <artifactId>cocoon-slide</artifactId>
       <version>2.1.11</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-core</artifactId>
+      <version>3.3.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-bundle</artifactId>
+      <version>2.7.18</version>
+    </dependency>
   </dependencies>
 </project>
