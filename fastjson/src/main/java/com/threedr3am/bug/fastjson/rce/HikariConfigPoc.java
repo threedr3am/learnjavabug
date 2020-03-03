@@ -1,4 +1,4 @@
-package com.threedr3am.bug.fastjson;
+package com.threedr3am.bug.fastjson.rce;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;

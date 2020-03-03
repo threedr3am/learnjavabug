@@ -1,4 +1,4 @@
-package com.threedr3am.bug.jackson;
+package com.threedr3am.bug.jackson.rce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.threedr3am.bug.common.server.LdapServer;

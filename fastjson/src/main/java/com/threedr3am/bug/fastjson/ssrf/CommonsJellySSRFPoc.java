@@ -1,11 +1,11 @@
-package com.threedr3am.bug.fastjson;
+package com.threedr3am.bug.fastjson.ssrf;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.threedr3am.bug.common.server.HTTPServer;
 
 /**
- * fastjson <= 1.2.66 RCE，需要开启AutoType
+ * fastjson <= 1.2.66 RCE，需要开启AutoType (Discovered by threedr3am) 水
  *
  *
  * <dependency>
