@@ -16,10 +16,12 @@
 <!--    <jackson.version>2.9.9.1</jackson.version>-->
 
     <!--     CVE-2019-20330-->
-        <jackson.version>2.9.10.1</jackson.version>
+<!--        <jackson.version>2.9.10.1</jackson.version>-->
 
     <!--     CVE-2020-8840-->
     <!--    <jackson.version>2.10.2</jackson.version>-->
+
+        <jackson.version>2.9.10.3</jackson.version>
   </properties>
 
   <dependencies>
@@ -77,7 +79,21 @@
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
-      <version>6.0</version>
+      <version>8.0.1</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>3.4.1</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client-minicluster -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client-minicluster</artifactId>
+      <version>3.2.1</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.codahale.metrics/metrics-healthchecks -->
