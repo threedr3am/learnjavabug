@@ -24,7 +24,9 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class HTTPServer {
 
-  private static final int PORT = 8080;
+  public static String filePath;
+  public static int PORT = 8080;
+  public static String contentType;
 
   public static void main(String[] args) throws IOException {
     run(args);
@@ -70,7 +72,7 @@ public class HTTPServer {
               : "?" + he.getRequestURI().getRawQuery()) + " " + he.getProtocol());
       if (requestMethod.equalsIgnoreCase("GET")) {
         Headers responseHeaders = he.getResponseHeaders();
-        responseHeaders.set("Content-Type", "application/json");
+        responseHeaders.set("Content-Type", contentType == null ? "application/json" : contentType);
 
         he.sendResponseHeaders(200, 0);
         // parse request
@@ -94,7 +96,7 @@ public class HTTPServer {
         }
         System.out.println(stringBuilder.toString());
 
-        byte[] bytes = Files.toByteArray(new File(HTTPServer.class.getClassLoader().getResource(clazz).getPath()));
+        byte[] bytes = Files.toByteArray(new File(filePath == null ? HTTPServer.class.getClassLoader().getResource(clazz).getPath() : filePath));
         // send response
         responseBody.write(bytes);
         responseBody.close();
