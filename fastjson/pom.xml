@@ -81,5 +81,12 @@
       <artifactId>Anteros-DBCP</artifactId>
       <version>1.0.1</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client-minicluster -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client-minicluster</artifactId>
+      <version>3.2.1</version>
+    </dependency>
   </dependencies>
 </project>
