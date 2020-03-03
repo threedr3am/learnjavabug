@@ -6,7 +6,9 @@ import java.io.IOException;
 
 /**
  *
- * jackson-databind <= 2.9.10.3 RCE，需要开启DefaultType (reported by threedr3am to the authorities)
+ * jackson-databind <= 2.9.10.3 RCE，需要开启DefaultType (reported by threedr3am & V1ZkRA)
+ *
+ * CVE-2020-9547, CVE-2020-9548
  *
  * <dependency>
  *       <groupId>org.apache.ibatis</groupId>

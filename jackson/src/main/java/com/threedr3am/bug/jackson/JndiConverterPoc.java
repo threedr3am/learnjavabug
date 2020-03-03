@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  *
- * jackson-databind <= 2.10.2 RCE，需要开启DefaultType (reported by threedr3am to the authorities)
+ * jackson-databind <= 2.10.2 RCE，需要开启DefaultType (reported by threedr3am)
  *
  * CVE-2020-8840
  *

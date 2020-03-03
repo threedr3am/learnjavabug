@@ -6,7 +6,9 @@ import java.io.IOException;
 
 /**
  *
- * jackson-databind <= 2.9.10.3 and <= 2.10.2 RCE，需要开启DefaultType (reported by threedr3am to the authorities)
+ * jackson-databind <= 2.9.10.3 and <= 2.10.2 RCE，需要开启DefaultType (reported by threedr3am & LFY)
+ *
+ * CVE-2020-9546
  *
  * <dependency>
  *       <groupId>org.apache.hadoop</groupId>

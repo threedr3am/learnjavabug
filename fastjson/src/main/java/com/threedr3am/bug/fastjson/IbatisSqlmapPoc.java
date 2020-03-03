@@ -5,7 +5,7 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.threedr3am.bug.common.server.LdapServer;
 
 /**
- * fastjson <= 1.2.62 RCE，需要开启AutoType
+ * fastjson <= 1.2.62 RCE，需要开启AutoType (report by threedr3am to 阿里云先知众测 - 内部已知)
  *
  * <dependency>
  *       <groupId>org.apache.ibatis</groupId>
