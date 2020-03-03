@@ -110,5 +110,11 @@
       <artifactId>cxf-bundle</artifactId>
       <version>2.7.18</version>
     </dependency>
+
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly</artifactId>
+      <version>1.0.1</version>
+    </dependency>
   </dependencies>
 </project>
