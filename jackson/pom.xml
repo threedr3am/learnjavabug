@@ -113,6 +113,13 @@
       <groupId>br.com.anteros</groupId>
       <artifactId>Anteros-DBCP</artifactId>
       <version>1.0.1</version>
+      <version>8.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.ibatis</groupId>
+      <artifactId>ibatis-sqlmap</artifactId>
+      <version>2.3.4.726</version>
     </dependency>
   </dependencies>
 
