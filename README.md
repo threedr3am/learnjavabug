@@ -3,15 +3,42 @@
 ---
 
 ### fastjson
+##### RCE
+package：com.threedr3am.bug.fastjson.rce
+
 1. com.threedr3am.bug.fastjson.rce.FastjsonSerialize(TemplatesImpl) 利用条件：fastjson <= 1.2.24 + Feature.SupportNonPublicField
 2. com.threedr3am.bug.fastjson.rce.NoNeedAutoTypePoc 利用条件：fastjson < 1.2.48 不需要任何配置，默认配置通杀RCE
 3. com.threedr3am.bug.fastjson.rce.HikariConfigPoc(HikariConfig) 利用条件：fastjson <= 1.2.59 RCE，需要开启AutoType
 4. com.threedr3am.bug.fastjson.rce.CommonsProxyPoc(SessionBeanProvider) 利用条件：fastjson <= 1.2.61 RCE，需要开启AutoType
+5. com.threedr3am.bug.fastjson.rce.JndiConverterPoc(JndiConverter) 利用条件：fastjson <= 1.2.62 RCE，需要开启AutoType
+6. com.threedr3am.bug.fastjson.rce.HadoopHikariPoc(HikariConfig) 利用条件：fastjson <= 1.2.62 RCE，需要开启AutoType
+7. com.threedr3am.bug.fastjson.rce.IbatisSqlmapPoc(JtaTransactionConfig) 利用条件：fastjson <= 1.2.62 RCE，需要开启AutoType
+
+##### SSRF
+package：com.threedr3am.bug.fastjson.ssrf
+
+1. com.threedr3am.bug.fastjson.ssrf.ApacheCxfSSRFPoc(WadlGenerator) 利用条件：fastjson <= 1.2.66 SSRF，需要开启AutoType
+2. com.threedr3am.bug.fastjson.ssrf.ApacheCxfSSRFPoc2(SchemaHandler) 利用条件：fastjson <= 1.2.66 SSRF，需要开启AutoType
+3. com.threedr3am.bug.fastjson.ssrf.CommonsJellySSRFPoc(Embedded) 利用条件：fastjson <= 1.2.66 SSRF，需要开启AutoType
+4. com.threedr3am.bug.fastjson.ssrf.JREJeditorPaneSSRFPoc(JEditorPane) 利用条件：fastjson <= 1.2.66 SSRF，需要开启AutoType
 
 ---
 
 ### jackson
-package：com.threedr3am.bug.jackson
+##### RCE
+package：com.threedr3am.bug.jackson.rce
+
+1. com.threedr3am.bug.jackson.rce.AnterosPoc
+2. com.threedr3am.bug.jackson.rce.EhcacheJndi
+3. com.threedr3am.bug.jackson.rce.H2Rce
+4. com.threedr3am.bug.jackson.rce.HadoopHikariConfigPoc
+5. com.threedr3am.bug.jackson.rce.HikariConfigPoc
+6. com.threedr3am.bug.jackson.rce.IbatisSqlmapPoc
+7. com.threedr3am.bug.jackson.rce.JndiConverterPoc
+8. com.threedr3am.bug.jackson.rce.LogbackJndi
+
+##### SSRF
+package：com.threedr3am.bug.jackson.ssrf
 
 ---
 
@@ -73,3 +100,6 @@ cas相关漏洞
 ---
 
 ### spring
+1. spring-actuator(jolokia、snake-yaml、h2-hikariCP、eureka)
+2. spring-cloud-config-server(CVE-2019-3799)
+3. spring-cloud-config-server(CVE-2020-5405)
