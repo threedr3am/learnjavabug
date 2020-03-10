@@ -21,6 +21,7 @@
     <module>tomcat</module>
     <module>spring</module>
     <module>cas</module>
+    <module>ShardingSphere-UI</module>
   </modules>
 
   <name>learn-java-bug</name>
