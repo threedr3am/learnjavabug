@@ -120,6 +120,12 @@
       <artifactId>ibatis-sqlmap</artifactId>
       <version>2.3.4.726</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>1.5.1</version>
+    </dependency>
   </dependencies>
 
 </project>

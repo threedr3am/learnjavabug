@@ -13,6 +13,7 @@ package：com.threedr3am.bug.fastjson.rce
 5. com.threedr3am.bug.fastjson.rce.JndiConverterPoc(JndiConverter) 利用条件：fastjson <= 1.2.62 RCE，需要开启AutoType
 6. com.threedr3am.bug.fastjson.rce.HadoopHikariPoc(HikariConfig) 利用条件：fastjson <= 1.2.62 RCE，需要开启AutoType
 7. com.threedr3am.bug.fastjson.rce.IbatisSqlmapPoc(JtaTransactionConfig) 利用条件：fastjson <= 1.2.62 RCE，需要开启AutoType
+8. com.threedr3am.bug.fastjson.rce.ShiroPoc(shiro-core) 利用条件：fastjson <= 1.2.66 RCE，需要开启AutoType
 
 ##### SSRF
 package：com.threedr3am.bug.fastjson.ssrf
