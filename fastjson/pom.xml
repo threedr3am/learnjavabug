@@ -116,5 +116,11 @@
       <artifactId>commons-jelly</artifactId>
       <version>1.0.1</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>1.5.1</version>
+    </dependency>
   </dependencies>
 </project>
