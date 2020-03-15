@@ -48,6 +48,14 @@
       <artifactId>httpasyncclient</artifactId>
       <version>4.1.4</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-core</artifactId>
+      <version>9.0.31</version>
+      <scope>compile</scope>
+    </dependency>
+
   </dependencies>
 
 </project>
