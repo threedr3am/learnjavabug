@@ -145,6 +145,12 @@
       <version>2.3.2</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.caucho</groupId>
+      <artifactId>quercus</artifactId>
+      <version>4.0.63</version>
+    </dependency>
+
 
   </dependencies>
 

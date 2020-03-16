@@ -122,5 +122,11 @@
       <artifactId>shiro-core</artifactId>
       <version>1.5.1</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.caucho</groupId>
+      <artifactId>quercus</artifactId>
+      <version>4.0.63</version>
+    </dependency>
   </dependencies>
 </project>
