@@ -5,7 +5,7 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.threedr3am.bug.common.server.LdapServer;
 
 /**
- * fastjson <= 1.2.62 RCE，需要开启AutoType (report by threedr3am to ASRC)
+ * fastjson <= 1.2.68 RCE，需要开启AutoType (report by threedr3am to ASRC)
  *
  * <dependency>
  *       <groupId>org.apache.hadoop</groupId>

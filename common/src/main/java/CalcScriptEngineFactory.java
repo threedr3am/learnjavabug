@@ -9,6 +9,7 @@ public class CalcScriptEngineFactory implements ScriptEngineFactory {
 
   public CalcScriptEngineFactory() {
     try {
+      System.out.println("run CalcScriptEngineFactory...");
       Runtime.getRuntime().exec("/System/Applications/Calculator.app/Contents/MacOS/Calculator");
     } catch (Throwable e) {
       e.printStackTrace();

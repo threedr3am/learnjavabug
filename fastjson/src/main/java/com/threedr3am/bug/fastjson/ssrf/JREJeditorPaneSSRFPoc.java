@@ -5,7 +5,7 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.threedr3am.bug.common.server.HTTPServer;
 
 /**
- * fastjson <= 1.2.66 RCE，需要开启AutoType（todo JRE自带依赖） (Discovered by threedr3am) 这个还是蛮好的gadget
+ * fastjson <= 1.2.68 RCE，需要开启AutoType（todo JRE自带依赖） (Discovered by threedr3am) 这个还是蛮好的gadget
  *
  * @author threedr3am
  */
