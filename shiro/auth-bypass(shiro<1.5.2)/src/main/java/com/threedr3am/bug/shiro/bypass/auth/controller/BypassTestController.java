@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  * todo    /aaaaa/..;/bypass  ->  bypass ->  ("/bypass", "authc")、("/bypass.*", "authc")、("/bypass/**", "authc")     (shiro <= 1.5.1)
  * todo    /bypass.xxxxx      ->  bypass ->  ("/bypass", "authc")、("/bypass/**", "authc")                             (shiro all version)
  *
+ * 有人说，实际开发不会这样配置，都是通过最后加一个("/**", "authc")全范围匹配，然而，实际上会存在某些放过的接口，例如/aaaaa/**，就能利用它进行bypass
+ * todo    /aaaaa/..;/bypass  利用存在（"/aaaaa/**", "anon"）去bypass ("/**", "authc")
+ *
  * @author threedr3am
  */
 @RestController
