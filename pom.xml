@@ -23,6 +23,7 @@
     <module>cas</module>
     <module>ShardingSphere-UI</module>
     <module>shiro</module>
+    <module>nexus</module>
   </modules>
 
   <name>learn-java-bug</name>
