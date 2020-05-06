@@ -21,6 +21,7 @@
     <module>tomcat</module>
     <module>spring</module>
     <module>cas</module>
+    <module>feature</module>
     <module>ShardingSphere-UI</module>
     <module>shiro</module>
     <module>nexus</module>
