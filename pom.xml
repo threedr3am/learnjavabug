@@ -25,6 +25,7 @@
     <module>ShardingSphere-UI</module>
     <module>shiro</module>
     <module>nexus</module>
+    <module>apache-poi</module>
   </modules>
 
   <name>learn-java-bug</name>
