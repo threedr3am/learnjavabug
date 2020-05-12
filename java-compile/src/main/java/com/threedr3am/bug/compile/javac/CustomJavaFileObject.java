@@ -1,8 +1,11 @@
 package com.threedr3am.bug.compile.javac;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
@@ -11,9 +14,11 @@ import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
+import javax.tools.JavaFileManager.Location;
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 import javax.tools.StandardJavaFileManager;
+import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;
 
 /**
@@ -29,14 +34,21 @@ public class CustomJavaFileObject {
         StandardJavaFileManager standardJavaFileManager = javaCompiler
             .getStandardFileManager(diagnostics, Locale.CHINA, Charset.forName("utf-8"));
 //        FileManagerImpl fileManager = new FileManagerImpl(standardJavaFileManager);
+//        StringBuilder stringBuilder = new StringBuilder()
+//            .append("class Main {")
+//            .append("   public static void main(String[] args) {")
+//            .append("       System.out.println(\"hello FFF!\");")
+//            .append("   }")
+//            .append("}");
         StringBuilder stringBuilder = new StringBuilder()
             .append("class Main {")
-            .append("   public static void main(String[] args) {")
+            .append("   static {")
             .append("       System.out.println(\"hello FFF!\");")
             .append("   }")
             .append("}");
+        JavaFileObject javaFileObject = new JavaObjectFromString("tmp.Main", stringBuilder.toString());
         Iterable<? extends JavaFileObject> javaFileObjects = Arrays
-            .asList(new JavaObjectFromString("Main", stringBuilder.toString()));
+            .asList(javaFileObject);
 
         // 编译任务
         CompilationTask task = javaCompiler.getTask(null, standardJavaFileManager, diagnostics, null, null, javaFileObjects);
@@ -46,6 +58,14 @@ public class CustomJavaFileObject {
         for (Object object : list) {
             Diagnostic d = (Diagnostic) object;
             System.out.println(d.getMessage(Locale.ENGLISH));
+        }
+
+        try {
+            new URLClassLoader(new URL[]{javaFileObject.toUri().toURL()}).loadClass("Main");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
     }
 
