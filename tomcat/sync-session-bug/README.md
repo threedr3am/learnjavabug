@@ -1,3 +1,6 @@
+### exp
+利用工具：[tomcat-cluster-session-sync-exp](https://github.com/threedr3am/tomcat-cluster-session-sync-exp)
+
 ### sync-session-bug
 
 这是一个tomcat使用了自带session同步功能时，不安全的配置（没有使用EncryptInterceptor）导致存在的反序列化漏洞，通过精心构造的数据包，
