@@ -29,13 +29,13 @@ public class LdapServer {
   public static byte[] classData;
 
   public static void main(String[] args) {
-    run();
+    run(args);
   }
 
-  public static void run() {
-    int port = 43658;
+  public static void run(String[] args) {
+    int port = args.length > 0 ? Integer.parseInt(args[0]) : 43658;
     //TODO 把resources下的Calc.class 或者 自定义修改编译后target目录下的Calc.class 拷贝到下面代码所示http://host:port的web服务器根目录即可
-    String url = "http://localhost/#Calc";
+    String url = args.length > 0 ? args[1] : "http://localhost/#Calc";
     try {
       InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig(LDAP_BASE);
       config.setListenerConfigs(new InMemoryListenerConfig(
