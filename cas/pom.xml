@@ -15,6 +15,7 @@
     <module>4.1.x-4.1.6</module>
     <module>5.x</module>
     <module>4.1.7-4.2.x</module>
+    <module>CAS4PaddingOracleCBC</module>
   </modules>
 
   <dependencies>
