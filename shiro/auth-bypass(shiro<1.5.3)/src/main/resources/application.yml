@@ -1,0 +1,2 @@
+server:
+  context-path: /bypass

@@ -11,6 +11,9 @@
 
   <artifactId>shiro</artifactId>
   <packaging>pom</packaging>
+  <modules>
+    <module><![CDATA[auth-bypass(shiro<1.5.3)]]></module>
+  </modules>
 
 
 </project>
