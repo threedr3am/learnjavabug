@@ -27,7 +27,6 @@
     <module>nexus</module>
     <module>apache-poi</module>
     <module>java-compile</module>
-    <module>spring-session-redis-sync</module>
   </modules>
 
   <name>learn-java-bug</name>
