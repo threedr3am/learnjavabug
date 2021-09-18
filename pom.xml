@@ -27,6 +27,7 @@
     <module>nexus</module>
     <module>apache-poi</module>
     <module>java-compile</module>
+      <module>auth-bypass(shiro=1.7.1)</module>
   </modules>
 
   <name>learn-java-bug</name>
