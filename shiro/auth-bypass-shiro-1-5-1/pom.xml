@@ -10,7 +10,7 @@
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>auth-bypass-cve-2020-1957</artifactId>
+  <artifactId>auth-bypass-shiro-1-5-1</artifactId>
   <build>
     <plugins>
       <plugin>

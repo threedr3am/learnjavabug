@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -27,7 +28,6 @@
     <module>nexus</module>
     <module>apache-poi</module>
     <module>java-compile</module>
-      <module>auth-bypass(shiro=1.7.1)</module>
   </modules>
 
   <name>learn-java-bug</name>
@@ -56,56 +56,45 @@
     </dependency>
 
 
-<!--    <dependency>-->
-<!--      <groupId>com.google.guava</groupId>-->
-<!--      <artifactId>guava</artifactId>-->
-<!--      <version>26.0-jre</version>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>com.google.guava</groupId>-->
+    <!--      <artifactId>guava</artifactId>-->
+    <!--      <version>26.0-jre</version>-->
+    <!--    </dependency>-->
 
 
     <!-- Javaee API -->
-<!--    <dependency>-->
-<!--      <groupId>javax</groupId>-->
-<!--      <artifactId>javaee-api</artifactId>-->
-<!--      <version>6.0</version>-->
-<!--    </dependency>-->
-
-
-
-
-
-
+    <!--    <dependency>-->
+    <!--      <groupId>javax</groupId>-->
+    <!--      <artifactId>javaee-api</artifactId>-->
+    <!--      <version>6.0</version>-->
+    <!--    </dependency>-->
 
 
     <!-- hibernate -->
-<!--    <dependency>-->
-<!--      <groupId>org.hibernate</groupId>-->
-<!--      <artifactId>hibernate</artifactId>-->
-<!--      <version>3.2.1.ga</version>-->
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>javax.transaction</groupId>-->
-<!--          <artifactId>jta</artifactId>-->
-<!--        </exclusion>-->
-<!--        <exclusion>-->
-<!--          <groupId>asm</groupId>-->
-<!--          <artifactId>asm</artifactId>-->
-<!--        </exclusion>-->
-<!--        <exclusion>-->
-<!--          <groupId>asm</groupId>-->
-<!--          <artifactId>asm-attrs</artifactId>-->
-<!--        </exclusion>-->
-<!--        <exclusion>-->
-<!--          <groupId>cglib</groupId>-->
-<!--          <artifactId>cglib</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
-<!--    </dependency>-->
-
-
-
-
-
+    <!--    <dependency>-->
+    <!--      <groupId>org.hibernate</groupId>-->
+    <!--      <artifactId>hibernate</artifactId>-->
+    <!--      <version>3.2.1.ga</version>-->
+    <!--      <exclusions>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>javax.transaction</groupId>-->
+    <!--          <artifactId>jta</artifactId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>asm</groupId>-->
+    <!--          <artifactId>asm</artifactId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>asm</groupId>-->
+    <!--          <artifactId>asm-attrs</artifactId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <groupId>cglib</groupId>-->
+    <!--          <artifactId>cglib</artifactId>-->
+    <!--        </exclusion>-->
+    <!--      </exclusions>-->
+    <!--    </dependency>-->
 
 
   </dependencies>
