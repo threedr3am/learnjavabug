@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>apache-com.threedr3am.bug.poi</artifactId>
+  <artifactId>apache-poi</artifactId>
   <packaging>pom</packaging>
   <modules>
     <module>cve-2014-3529</module>

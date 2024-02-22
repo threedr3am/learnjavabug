@@ -88,7 +88,7 @@
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/com.codahale.metrics/metrics-healthchecks -->
-    <dependency>acc
+    <dependency>
       <groupId>com.codahale.metrics</groupId>
       <artifactId>metrics-healthchecks</artifactId>
       <version>3.0.2</version>

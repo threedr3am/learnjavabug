@@ -15,6 +15,7 @@
     <module>spring-boot-actuator-bug</module>
     <module>spring-cloud-config-server-CVE-2020-5410</module>
     <module>spring-data-mongodb-spel-CVE-2022-22980</module>
+    <module>spring-uricomponentsbuilder</module>
   </modules>
 
 
