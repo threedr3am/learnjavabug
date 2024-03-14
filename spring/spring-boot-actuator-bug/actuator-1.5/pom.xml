@@ -6,6 +6,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>1.5.16.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -38,18 +39,6 @@
       <artifactId>spring-cloud-starter-config</artifactId>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <fork>true</fork>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 
   <dependencyManagement>
     <dependencies>
