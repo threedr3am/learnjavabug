@@ -40,4 +40,17 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>  
+            <artifactId>tomcat-coyote</artifactId>  
+            <version>7.0.39</version>  
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.tomcat</groupId>
+                    <artifactId>tomcat-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>

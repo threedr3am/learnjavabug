@@ -10,6 +10,24 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>session-filestore</artifactId>
-
+  <dependencies>
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-coyote</artifactId>
+          <version>7.0.39</version>
+          <type>jar</type>
+          <scope>compile</scope>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.apache.tomcat</groupId>
+                  <artifactId>tomcat-juli</artifactId>
+              </exclusion>
+              <exclusion>
+                  <groupId>org.apache.tomcat</groupId>
+                  <artifactId>tomcat-util</artifactId>
+              </exclusion>
+          </exclusions>
+      </dependency>
+  </dependencies>
 
 </project>
